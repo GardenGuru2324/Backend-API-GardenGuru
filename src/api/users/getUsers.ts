@@ -1,14 +1,14 @@
 import express from 'express';
-import { main } from '../db';
+import { getUsers } from '../../database/users/users';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
 	try {
-		const data = await main();
+		const data = await getUsers();
 		res.json(data);
 	} catch (error) {
-		console.log(error);
+		return error;
 	}
 });
 
