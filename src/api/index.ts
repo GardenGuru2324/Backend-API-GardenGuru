@@ -1,5 +1,6 @@
 import express from 'express';
 import users from './users/getUsers';
+import user from './users/getUserByUserId';
 
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router.get('/', (req, res) => {
 
 // Hier worden de endpoints gedefinieerd.
 router.use('/users', users);
+router.use('/users', user);
 
 export default router;
