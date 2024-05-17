@@ -8,7 +8,7 @@ const client = new MongoClient(uri);
 export const userById = async (userId: ObjectId) => {
 	try {
 		await connectDatabase();
-		return await client.db('sample_mflix').collection('users').findOne({ _id: userById }); // Momenteel mockData
+		return await client.db('sample_mflix').collection('users').findOne({ _id: userId }); // Momenteel mockData
 	} catch (error) {
 		return error;
 	} finally {
