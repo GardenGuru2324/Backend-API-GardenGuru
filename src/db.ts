@@ -11,7 +11,7 @@ export const main = async () => {
 		await connect();
 		const result = await client
 			.db('sample_mflix')
-			.collection('movies')
+			.collection('users')
 			.find({})
 			.limit(5)
 			.toArray();
