@@ -1,4 +1,4 @@
-import { connect, close } from '../db';
+import { connectDatabase, closeDatabase } from '../db';
 import { MongoClient } from 'mongodb';
 import 'dotenv/config';
 
@@ -7,12 +7,11 @@ const client = new MongoClient(uri);
 
 export const getUsers = async () => {
 	try {
-		await connect();
-		const result = await client.db('sample_mflix').collection('users').find({}).toArray();
-		return result;
+		await connectDatabase();
+		return await client.db('sample_mflix').collection('users').find({}).toArray(); // Momenteel mockData
 	} catch (error) {
 		return error;
 	} finally {
-		await close();
+		await closeDatabase();
 	}
 };
