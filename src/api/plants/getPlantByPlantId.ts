@@ -1,17 +1,16 @@
 import express from 'express';
-import { ObjectId } from 'mongodb';
-import { userById } from '../../database/users/userById';
 import { createResponseObject } from '../../common/common';
+import { getPlantByPlantId } from '../../database/plants/plantByPlantId';
 
 const router = express.Router();
 
 router.get('/:id', async (req, res) => {
 	try {
-		const userId: ObjectId = new ObjectId(req.params.id);
+		const plantId: string = req.params.id;
 
-		const user = await userById(userId);
+		const plant = await getPlantByPlantId(plantId);
 
-		return createResponseObject(200, user, res);
+		return createResponseObject(200, plant, res);
 	} catch (error) {
 		return error;
 	}

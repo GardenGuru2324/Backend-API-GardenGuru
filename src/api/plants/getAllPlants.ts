@@ -1,14 +1,14 @@
 import express from 'express';
-import { getUsers } from '../../database/users/allUsers';
 import { createResponseObject } from '../../common/common';
+import { getPlants } from '../../database/plants/allPlants';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
 	try {
-		const allUsers = await getUsers();
+		const allPlants = await getPlants();
 
-		return createResponseObject(200, allUsers, res);
+		return createResponseObject(200, allPlants, res);
 	} catch (error) {
 		return error;
 	}

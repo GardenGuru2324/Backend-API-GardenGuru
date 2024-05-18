@@ -5,10 +5,10 @@ import 'dotenv/config';
 const uri: string = process.env.MONGO_CONNECT_URL!;
 const client = new MongoClient(uri);
 
-export const getUsers = async () => {
+export const getPlants = async () => {
 	try {
 		await connectDatabase();
-		return await client.db('sample_mflix').collection('users').find({}).toArray(); // Momenteel mockData
+		return await client.db('GardenGuru').collection('Plants').find({}).toArray();
 	} catch (error) {
 		return error;
 	} finally {
