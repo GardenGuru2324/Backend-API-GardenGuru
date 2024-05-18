@@ -1,14 +1,14 @@
 import { connectDatabase, closeDatabase } from '../db';
-import { MongoClient, ObjectId } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import 'dotenv/config';
 
 const uri: string = process.env.MONGO_CONNECT_URL!;
 const client = new MongoClient(uri);
 
-export const userById = async (userId: ObjectId) => {
+export const getPlantByPlantId = async (plantId: string) => {
 	try {
 		await connectDatabase();
-		return await client.db('sample_mflix').collection('users').findOne({ _id: userId }); // Momenteel mockData
+		return await client.db('GardenGuru').collection('Plants').findOne({ plantId: plantId });
 	} catch (error) {
 		return error;
 	} finally {

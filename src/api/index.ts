@@ -1,6 +1,6 @@
 import express from 'express';
-import users from './users/getUsers';
-import user from './users/getUserByUserId';
+import plants from './plants/getAllPlants';
+import plant from './plants/getPlantByPlantId';
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 });
 
 // Hier worden de endpoints gedefinieerd.
-router.use('/users', users);
-router.use('/users', user);
+router.use('/plants', plants);
+router.use('/plants', plant);
 
 export default router;
