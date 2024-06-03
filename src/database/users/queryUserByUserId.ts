@@ -11,6 +11,7 @@ export const getUserByUserId = async (
   userId: string
 ): Promise<User | unknown> => {
   try {
+    //test
     await connectDatabase();
     return (await client
       .db(database)
