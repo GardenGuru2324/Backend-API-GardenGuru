@@ -4,12 +4,17 @@ import { queryAllPlantsOfUserPlantsOfUser } from '../../database/plants/queryAll
 import { Plant } from '../../types/plant/plant';
 import { ConflictError } from '../../errors/error';
 import { errorMessages } from '../../errors/errorMessages';
+import { doesUserExist } from '../../common/users/common';
+import { User } from '../../types/user/user';
+import { getUserByUserId } from '../../database/users/queryUserByUserId';
 
 const router = express.Router();
 
 router.get('/user/:userId', async (req, res) => {
 	const userId = req.params.userId;
 	try {
+		await validateUser(userId);
+
 		const allPlantsOfUser: Plant[] = (await queryAllPlantsOfUserPlantsOfUser(
 			userId
 		)) as Plant[];
@@ -21,6 +26,11 @@ router.get('/user/:userId', async (req, res) => {
 		return handleErrors(error, res);
 	}
 });
+
+const validateUser = async (userId: string) => {
+	const user: User = (await getUserByUserId(userId)) as User;
+	doesUserExist(user);
+};
 
 const checkIfUserHasPlants = (allPlantsOfUser: Plant[]) => {
 	if (allPlantsOfUser.length === 0) {
