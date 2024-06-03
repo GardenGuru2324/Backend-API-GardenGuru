@@ -1,3 +1,4 @@
 export const errorMessages = {
-	userHasNoPlants: 'User does not have plants yet'
+	userHasNoPlants:
+		'You currently do not have any plants in your collection. Please add a plant to get started.'
 };
