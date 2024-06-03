@@ -10,7 +10,7 @@ import { getUserByUserId } from '../../database/users/queryUserByUserId';
 
 const router = express.Router();
 
-router.get('/user/:userId', async (req, res) => {
+router.get('/:userId', async (req, res) => {
 	const userId = req.params.userId;
 	try {
 		await validateUser(userId);

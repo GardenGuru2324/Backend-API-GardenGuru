@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 // Hier worden de endpoints gedefinieerd.
-router.use('/plants', plants);
+router.use('/plants/user', plants);
 router.use('/plants', plant);
 router.use('/user', user);
 
