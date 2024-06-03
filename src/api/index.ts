@@ -1,5 +1,5 @@
 import express from 'express';
-import plants from './plants/getAllPlants';
+import plants from './plants/getAllPlantsOfUser';
 import plant from './plants/getPlantByPlantId';
 
 const router = express.Router();
