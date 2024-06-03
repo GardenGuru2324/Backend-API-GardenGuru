@@ -1,5 +1,5 @@
 import express from 'express';
-import plants from './plants/getAllPlantsOfUser';
+import plantsOfUser from './plants/getAllPlantsOfUser';
 import plant from './plants/getPlantByPlantId';
 import user from './users/getUserByUserId';
 
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 // Hier worden de endpoints gedefinieerd.
-router.use('/plants/user', plants);
+router.use('/plants/user', plantsOfUser);
 router.use('/plants', plant);
 router.use('/user', user);
 
