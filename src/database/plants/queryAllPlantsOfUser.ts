@@ -12,7 +12,7 @@ export const queryAllPlantsOfUserPlantsOfUser = async (
 ): Promise<Plant[] | unknown> => {
 	try {
 		await connectDatabase();
-		return await client.db(database).collection('Plants').find({ userId }).toArray();
+		return await client.db(database).collection('Plants').find({ userId: userId }).toArray();
 	} catch (error) {
 		return error;
 	} finally {
