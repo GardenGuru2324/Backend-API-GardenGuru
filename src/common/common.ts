@@ -20,3 +20,7 @@ const checkErrorType = (error: any) => {
 	}
 	return { message, statusCode };
 };
+
+export const isNullOrUndefined = (obj: any) => {
+	return obj === null || obj === undefined;
+};

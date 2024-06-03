@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 // Hier worden de endpoints gedefinieerd.
 router.use('/plants/user', plantsOfUser); // plants/user/{userId}
-router.use('/', deletePlantByPlantId); // user/{userId}/plants/{plantId}
+router.use(deletePlantByPlantId);
 router.use('/user', user);
 
 export default router;

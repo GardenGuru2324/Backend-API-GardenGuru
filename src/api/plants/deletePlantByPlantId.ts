@@ -1,5 +1,5 @@
 import express from 'express';
-import { createResponseObject, handleErrors } from '../../common/common';
+import { createResponseObject, handleErrors, isNullOrUndefined } from '../../common/common';
 import { queryDeletePlantByPlantId } from '../../database/plants/queryDeletePlantByPlantId';
 import { doesUserExist } from '../../common/users/common';
 import { User } from '../../types/user/user';
@@ -35,7 +35,7 @@ const validateUser = async (userId: string) => {
 const checkIfUserHasPlant = async (plantId: string, userId: string) => {
 	const plant: Plant = (await queryPlantByPlantId(plantId)) as Plant;
 
-	if (plant === undefined) {
+	if (isNullOrUndefined(plant)) {
 		throw new NotFoundError('Plant not Fount'); // Fix en verplaatsen common maken mischien bespreken met renzo
 	}
 
