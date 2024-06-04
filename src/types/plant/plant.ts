@@ -1,5 +1,7 @@
+import { ObjectId } from 'mongodb';
+
 export interface Plant {
-	_id: string;
+	_id: ObjectId;
 	plantId: string;
 	plantName: string;
 	locationId: string;

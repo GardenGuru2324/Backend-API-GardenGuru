@@ -7,10 +7,10 @@ const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryAllPlantsOfUser = async (userId: string): Promise<Plant[] | unknown> => {
+export const queryAllPlants = async (): Promise<Plant[] | unknown> => {
 	try {
 		await connectDatabase();
-		return await client.db(database).collection('Plants').find({ userId: userId }).toArray();
+		return await client.db(database).collection('Plants').find({}).toArray();
 	} catch (error) {
 		return error;
 	} finally {
