@@ -22,7 +22,7 @@ router.delete('/user/:userId/plants/:plantId', async (req, res) => {
 
 		await queryDeletePlantByPlantId(plantId);
 
-		return createResponseObject(204, { message: 'Plant deleted' }, res);
+		return createResponseObject(200, { message: 'Plant deleted' }, res);
 	} catch (error) {
 		return handleErrors(error, res);
 	}
