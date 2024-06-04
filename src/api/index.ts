@@ -1,5 +1,6 @@
 import express from 'express';
 import plantsOfUser from './plants/getAllPlantsOfUser';
+import allPlants from './plants/getAllPlants';
 import user from './users/getUserByUserId';
 
 const router = express.Router();
@@ -12,6 +13,7 @@ router.get('/', (req, res) => {
 });
 
 // Hier worden de endpoints gedefinieerd die gebruikt moeten worden door de router.
+router.use(allPlants);
 router.use(plantsOfUser);
 router.use('/user', user);
 

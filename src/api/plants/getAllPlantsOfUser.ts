@@ -1,6 +1,6 @@
 import express from 'express';
 import { createResponseObject, handleErrors } from '../../common/common';
-import { queryAllPlantsOfUserPlantsOfUser } from '../../database/plants/queryAllPlantsOfUser';
+import { queryAllPlantsOfUser } from '../../database/plants/queryAllPlantsOfUser';
 import { Plant } from '../../types/plant/plant';
 import { ConflictError } from '../../errors/error';
 import { errorMessages } from '../../errors/errorMessages';
@@ -15,9 +15,7 @@ router.get('/user/:userId/plants', async (req, res) => {
 	try {
 		await validateUser(userId);
 
-		const allPlantsOfUser: Plant[] = (await queryAllPlantsOfUserPlantsOfUser(
-			userId
-		)) as Plant[];
+		const allPlantsOfUser: Plant[] = (await queryAllPlantsOfUser(userId)) as Plant[];
 
 		checkIfUserHasPlants(allPlantsOfUser);
 
