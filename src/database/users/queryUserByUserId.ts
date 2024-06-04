@@ -7,11 +7,10 @@ const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const getUserByUserId = async (
+export const queryUserByUserId = async (
   userId: string
 ): Promise<User | unknown> => {
   try {
-    //test
     await connectDatabase();
     return (await client
       .db(database)

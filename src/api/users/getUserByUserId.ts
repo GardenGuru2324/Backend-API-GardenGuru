@@ -1,16 +1,16 @@
 import express from "express";
 import { createResponseObject, handleErrors } from "../../common/common";
-import { getUserByUserId } from "../../database/users/queryUserByUserId";
+import { queryUserByUserId } from "../../database/users/queryUserByUserId";
 import { User } from "../../types/user/user";
 import { doesUserExist } from "../../common/users/common";
 
 const router = express.Router();
 
-router.get("/:id", async (req, res) => {
+router.get("/user/:id", async (req, res) => {
   try {
     const userId: string = req.params.id;
 
-    const user: User = (await getUserByUserId(userId)) as User;
+    const user: User = (await queryUserByUserId(userId)) as User;
     doesUserExist(user);
     return createResponseObject(200, user, res);
   } catch (error) {
