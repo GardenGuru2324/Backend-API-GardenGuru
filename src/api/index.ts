@@ -1,6 +1,7 @@
 import express from 'express';
-import plants from './plants/getAllPlants';
-import plant from './plants/getPlantByPlantId';
+import plantsOfUser from './plants/getAllPlantsOfUser';
+import allPlants from './plants/getAllPlants';
+import user from './users/getUserByUserId';
 
 const router = express.Router();
 
@@ -11,8 +12,9 @@ router.get('/', (req, res) => {
 	});
 });
 
-// Hier worden de endpoints gedefinieerd.
-router.use('/plants', plants);
-router.use('/plants', plant);
+// Hier worden de endpoints gedefinieerd die gebruikt moeten worden door de router.
+router.use(allPlants);
+router.use(plantsOfUser);
+router.use('/user', user);
 
 export default router;
