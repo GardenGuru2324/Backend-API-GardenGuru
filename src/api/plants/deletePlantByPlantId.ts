@@ -8,6 +8,7 @@ import { queryPlantByPlantId } from '../../database/plants/queryPlantByPlantId';
 import { ConflictError, NotFoundError } from '../../errors/error';
 import { Plant } from '../../types/plant/plant';
 import { checkIfPlantExists } from '../../checks/plant/plantChecks';
+import { errorMessages } from '../../errors/errorMessages';
 
 const router = express.Router();
 
@@ -37,7 +38,7 @@ const checkIfUserHasPlant = async (plantId: string, userId: string) => {
 	const plant: Plant = await checkIfPlantExists(plantId);
 
 	if (plant.userId !== userId) {
-		throw new ConflictError('You are not the owner of the plant!');
+		throw new ConflictError(errorMessages.notPlantOwner);
 	}
 };
 export default router;
