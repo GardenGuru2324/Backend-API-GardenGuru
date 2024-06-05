@@ -2,6 +2,7 @@ import express from "express";
 import plants from "./plants/getAllPlantsOfUser";
 import plant from "./plants/getPlantByPlantId";
 import user from "./users/getUserByUserId";
+import register from "./users/addUser";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.get("/", (req, res) => {
 router.use("/plants", plants);
 router.use("/plants", plant);
 router.use(user);
+router.use(register);
 
 export default router;
