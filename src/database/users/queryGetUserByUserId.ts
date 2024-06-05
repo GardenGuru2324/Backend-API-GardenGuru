@@ -7,7 +7,7 @@ const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryUserByUserId = async (
+export const queryGetUserByUserId = async (
   userId: string
 ): Promise<User | unknown> => {
   try {
