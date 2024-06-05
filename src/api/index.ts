@@ -2,6 +2,8 @@ import express from 'express';
 import plantsOfUser from './plants/getAllPlantsOfUser';
 import allPlants from './plants/getAllPlants';
 import deletePlantByPlantId from './plants/deletePlantByPlantId';
+import initializeDatabase from './jest_test_endpoints/initializeDatabase';
+import clearDatabase from './jest_test_endpoints/clearDatabase';
 import user from './users/getUserByUserId';
 
 const router = express.Router();
@@ -19,4 +21,7 @@ router.use(plantsOfUser);
 router.use(deletePlantByPlantId);
 router.use('/user', user);
 
+// Database Seeding
+router.use(initializeDatabase);
+router.use(clearDatabase);
 export default router;
