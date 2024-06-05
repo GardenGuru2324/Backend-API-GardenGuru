@@ -12,7 +12,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { queryAddUser } from "../../database/users/queryAddUser";
 import validate from "deep-email-validator";
-import { UnprocessableContentError } from "../../errors/error";
+import { ConflictError, UnprocessableContentError } from "../../errors/error";
 import { errorMessages } from "../../errors/errorMessages";
 import { doesUserExist } from "../../common/users/common";
 import { queryGetuserByEmail } from "../../database/users/queryGetUserByEmail";
@@ -39,7 +39,8 @@ router.get("/register", async (req, res) => {
 
     const foundUser: User = (await queryGetuserByEmail(email)) as User;
 
-    doesUserExist(foundUser);
+    if (foundUser !== null)
+      throw new ConflictError(errorMessages.userAlreadyExist);
 
     const userId: string = uuidv4();
     const userName: string = generateUserName(fullName);
