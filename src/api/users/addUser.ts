@@ -14,10 +14,9 @@ import { queryAddUser } from "../../database/users/queryAddUser";
 import validate from "deep-email-validator";
 import { ConflictError, UnprocessableContentError } from "../../errors/error";
 import { errorMessages } from "../../errors/errorMessages";
-import { doesUserExist } from "../../common/users/common";
 import { queryGetuserByEmail } from "../../database/users/queryGetUserByEmail";
 
-const generateUserName = (fullName: string) => {
+const generateUserName = () => {
   const customConfig: Config = {
     dictionaries: [adjectives, colors, animals],
     separator: "-",
@@ -43,7 +42,7 @@ router.get("/register", async (req, res) => {
       throw new ConflictError(errorMessages.userAlreadyExist);
 
     const userId: string = uuidv4();
-    const userName: string = generateUserName(fullName);
+    const userName: string = generateUserName();
     const accountCreated: number = Date.now();
     const createUser: CreateUser = {
       userId: userId,
