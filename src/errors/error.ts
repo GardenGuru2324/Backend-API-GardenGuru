@@ -37,4 +37,4 @@ export class UnprocessableContentError extends CustomError {
   }
 }
 
-export const errorTypes = [NotFoundError, ConflictError, BadRequestError];
+export const errorTypes = [NotFoundError, ConflictError, BadRequestError, UnprocessableContentError];
