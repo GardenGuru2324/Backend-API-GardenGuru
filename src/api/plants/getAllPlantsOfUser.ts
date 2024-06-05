@@ -6,7 +6,7 @@ import { ConflictError } from '../../errors/error';
 import { errorMessages } from '../../errors/errorMessages';
 import { doesUserExist } from '../../common/users/common';
 import { User } from '../../types/user/user';
-import { getUserByUserId } from '../../database/users/queryUserByUserId';
+import { queryGetUserByUserId } from '../../database/users/queryGetUserByUserId';
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router.get('/user/:userId/plants', async (req, res) => {
 });
 
 const validateUser = async (userId: string) => {
-	const user: User = (await getUserByUserId(userId)) as User;
+	const user: User = (await queryGetUserByUserId(userId)) as User;
 	doesUserExist(user);
 };
 
