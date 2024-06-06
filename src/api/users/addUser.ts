@@ -15,6 +15,7 @@ import validate from "deep-email-validator";
 import { ConflictError, UnprocessableContentError } from "../../errors/error";
 import { errorMessages } from "../../errors/errorMessages";
 import { queryGetuserByEmail } from "../../database/users/queryGetUserByEmail";
+import { queryGetUserByUserId } from "../../database/users/queryGetUserByUserId";
 
 const generateUserName = () => {
   const customConfig: Config = {
@@ -28,10 +29,11 @@ const generateUserName = () => {
 };
 const router = express.Router();
 
-router.get("/register", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const { email, fullName, password } = req.body;
-    const isEmailValid: boolean = (await validate(email)).valid;
+    const validateEmail = await validate({ email: email, validateSMTP: false });
+    const isEmailValid: boolean = validateEmail.valid;
 
     if (!isEmailValid)
       throw new UnprocessableContentError(errorMessages.invalidEmail);
@@ -52,7 +54,8 @@ router.get("/register", async (req, res) => {
       fullName: fullName,
       accountCreated: accountCreated,
     };
-    const createdUser: User = (await queryAddUser(createUser)) as User;
+    await queryAddUser(createUser);
+    const createdUser: User = await queryGetUserByUserId(userId) as User;
 
     return createResponseObject(201, createdUser, res);
   } catch (error) {
