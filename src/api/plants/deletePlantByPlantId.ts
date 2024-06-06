@@ -1,14 +1,13 @@
 import express from 'express';
 import { createResponseObject, handleErrors, isNullOrUndefined } from '../../common/common';
-import { queryDeletePlantByPlantId } from '../../database/plants/queryDeletePlantByPlantId';
+import { queryDeletePlantByPlantIdAndUserId } from '../../database/plants/queryDeletePlantByPlantId';
 import { doesUserExist } from '../../common/users/common';
 import { User } from '../../types/user/user';
 import { getUserByUserId } from '../../database/users/queryUserByUserId';
-import { queryPlantByPlantId } from '../../database/plants/queryPlantByPlantId';
-import { ConflictError, NotFoundError } from '../../errors/error';
+import { NotFoundError } from '../../errors/error';
 import { Plant } from '../../types/plant/plant';
-import { checkIfPlantExists } from '../../checks/plant/plantChecks';
 import { errorMessages } from '../../errors/errorMessages';
+import { queryPlantByPlantIdAndUserId } from '../../database/plants/queryPlantByPlantId';
 
 const router = express.Router();
 
@@ -21,7 +20,7 @@ router.delete('/user/:userId/plants/:plantId', async (req, res) => {
 
 		await checkIfUserHasPlant(plantId, userId);
 
-		await queryDeletePlantByPlantId(plantId);
+		await queryDeletePlantByPlantIdAndUserId(plantId,userId);
 
 		return createResponseObject(200, { message: 'Plant successfully deleted' }, res);
 	} catch (error) {
@@ -35,10 +34,10 @@ const validateUser = async (userId: string) => {
 };
 
 const checkIfUserHasPlant = async (plantId: string, userId: string) => {
-	const plant: Plant = await checkIfPlantExists(plantId);
+	const plant: Plant = (await queryPlantByPlantIdAndUserId(plantId, userId)) as Plant;
 
-	if (plant.userId !== userId) {
-		throw new ConflictError(errorMessages.notPlantOwner);
+	if (isNullOrUndefined(plant)) {
+		throw new NotFoundError(errorMessages.plantNotFound);
 	}
 };
 export default router;

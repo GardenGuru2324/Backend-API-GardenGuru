@@ -6,10 +6,10 @@ const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryPlantByPlantId = async (plantId: string) => {
+export const queryPlantByPlantIdAndUserId = async (plantId: string,userId:string) => {
 	try {
 		await connectDatabase();
-		return await client.db(database).collection('Plants').findOne({ plantId: plantId });
+		return await client.db(database).collection('Plants').findOne({ plantId: plantId, userId:userId });
 	} catch (error) {
 		return error;
 	} finally {
