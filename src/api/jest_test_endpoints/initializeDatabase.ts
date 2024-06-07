@@ -4,9 +4,10 @@ import { queryInitializeDatabase } from '../../database/jest_test_querys/queryin
 
 const router = express.Router();
 
-router.get('/initializeDatabase', async (req, res) => {
+router.get('/:tableName/initializeDatabase', async (req, res) => {
+	const tableName: string = req.params.tableName;
 	try {
-		await queryInitializeDatabase();
+		await queryInitializeDatabase(tableName);
 		return createResponseObject(200, { message: 'Database seeded!' }, res);
 	} catch (error) {
 		return handleErrors(error, res);
