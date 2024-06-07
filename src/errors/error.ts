@@ -9,6 +9,20 @@ export class CustomError extends Error {
   }
 }
 
+export class BadRequestError extends CustomError {
+  constructor(message?: string) {
+    super(message || "Bad Request", 400);
+    Object.setPrototypeOf(this, BadRequestError.prototype);
+  }
+}
+
+export class UnauthorizedError extends CustomError {
+  constructor(message?: string) {
+    super(message || "Unauthorized", 401);
+    Object.setPrototypeOf(this, UnauthorizedError.prototype);
+  }
+}
+
 export class NotFoundError extends CustomError {
   constructor(message?: string) {
     super(message || "Not Found", 404);
@@ -23,13 +37,6 @@ export class ConflictError extends CustomError {
   }
 }
 
-export class BadRequestError extends CustomError {
-  constructor(message?: string) {
-    super(message || "Bad Request", 400);
-    Object.setPrototypeOf(this, BadRequestError.prototype);
-  }
-}
-
 export class UnprocessableContentError extends CustomError {
   constructor(message?: string) {
     super(message || "Unprocessable Content", 422);
@@ -37,4 +44,10 @@ export class UnprocessableContentError extends CustomError {
   }
 }
 
-export const errorTypes = [NotFoundError, ConflictError, BadRequestError, UnprocessableContentError];
+export const errorTypes = [
+  NotFoundError,
+  ConflictError,
+  BadRequestError,
+  UnprocessableContentError,
+  UnauthorizedError,
+];
