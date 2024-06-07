@@ -4,9 +4,10 @@ import { queryClearDatabase } from '../../database/jest_test_querys/queryClearDa
 
 const router = express.Router();
 
-router.get('/clearDatabase', async (req, res) => {
+router.get('/:tableName/clearDatabase', async (req, res) => {
+	const tableName: string = req.params.tableName;
 	try {
-		await queryClearDatabase();
+		await queryClearDatabase(tableName);
 		return createResponseObject(200, { message: 'Database clear!' }, res);
 	} catch (error) {
 		return handleErrors(error, res);

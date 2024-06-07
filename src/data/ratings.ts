@@ -1,4 +1,4 @@
-export const rating = [
+export const ratings = [
 	{
 		ratingId: 'jest_rating_1',
 		ratingValue: 5,
