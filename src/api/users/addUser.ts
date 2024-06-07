@@ -1,7 +1,5 @@
 import express from "express";
-import { createResponseObject, handleErrors } from "../../common/common";
-import { User } from "../../types/user/user";
-import { CreateUser } from "../../types/user/createUser";
+import { v4 as uuidv4 } from "uuid";
 import {
   Config,
   adjectives,
@@ -9,7 +7,11 @@ import {
   colors,
   uniqueNamesGenerator,
 } from "unique-names-generator";
-import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcrypt";
+
+import { createResponseObject, handleErrors } from "../../common/common";
+import { User } from "../../types/user/user";
+import { CreateUser } from "../../types/user/createUser";
 import { queryAddUser } from "../../database/users/queryAddUser";
 import validate from "deep-email-validator";
 import { ConflictError, UnprocessableContentError } from "../../errors/error";
@@ -45,17 +47,18 @@ router.post("/register", async (req, res) => {
 
     const userId: string = uuidv4();
     const userName: string = generateUserName();
+    const hashPassword: string = await bcrypt.hash(password, 3);
     const accountCreated: number = Date.now();
     const createUser: CreateUser = {
       userId: userId,
       userName: userName,
-      password: password,
+      password: hashPassword,
       email: email,
       fullName: fullName,
       accountCreated: accountCreated,
     };
     await queryAddUser(createUser);
-    const createdUser: User = await queryGetUserByUserId(userId) as User;
+    const createdUser: User = (await queryGetUserByUserId(userId)) as User;
 
     return createResponseObject(201, createdUser, res);
   } catch (error) {
