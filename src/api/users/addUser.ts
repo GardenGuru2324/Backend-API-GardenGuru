@@ -29,6 +29,23 @@ const generateUserName = () => {
 
   return uniqueNamesGenerator(customConfig);
 };
+const createUserObject = (
+  userId: string,
+  userName: string,
+  password: string,
+  email: string,
+  fullName: string,
+  accountCreated: number
+): CreateUser => {
+  return {
+    userId: userId,
+    userName: userName,
+    password: password,
+    email: email,
+    fullName: fullName,
+    accountCreated: accountCreated,
+  };
+};
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -49,14 +66,14 @@ router.post("/register", async (req, res) => {
     const userName: string = generateUserName();
     const hashPassword: string = await bcrypt.hash(password, 3);
     const accountCreated: number = Date.now();
-    const createUser: CreateUser = {
-      userId: userId,
-      userName: userName,
-      password: hashPassword,
-      email: email,
-      fullName: fullName,
-      accountCreated: accountCreated,
-    };
+    const createUser: CreateUser = createUserObject(
+      userId,
+      userName,
+      hashPassword,
+      email,
+      fullName,
+      accountCreated
+    );
     await queryAddUser(createUser);
     const createdUser: User = (await queryGetUserByUserId(userId)) as User;
 
