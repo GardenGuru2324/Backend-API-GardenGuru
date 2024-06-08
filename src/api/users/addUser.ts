@@ -46,7 +46,7 @@ const createUserObject = (
     accountCreated: accountCreated,
   };
 };
-const validateEmail = async(email: string): Promise<void> => {
+const validateEmail = async (email: string): Promise<void> => {
   const validateEmail = await validate({ email: email, validateSMTP: false });
   const isEmailValid: boolean = validateEmail.valid;
 
@@ -62,24 +62,24 @@ const doesUserAlreadyExist = async (email: string): Promise<void> => {
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
+  const { email, fullName, password } = req.body;
+
+  validateEmail(email);
+  doesUserAlreadyExist(email);
+
+  const userId: string = uuidv4();
+  const userName: string = generateUserName();
+  const hashPassword: string = await bcrypt.hash(password, 3);
+  const accountCreated: number = Date.now();
+  const createUser: CreateUser = createUserObject(
+    userId,
+    userName,
+    hashPassword,
+    email,
+    fullName,
+    accountCreated
+  );
   try {
-    const { email, fullName, password } = req.body;
-
-    validateEmail(email);
-    doesUserAlreadyExist(email);
-
-    const userId: string = uuidv4();
-    const userName: string = generateUserName();
-    const hashPassword: string = await bcrypt.hash(password, 3);
-    const accountCreated: number = Date.now();
-    const createUser: CreateUser = createUserObject(
-      userId,
-      userName,
-      hashPassword,
-      email,
-      fullName,
-      accountCreated
-    );
     await queryAddUser(createUser);
     const createdUser: User = (await queryGetUserByUserId(userId)) as User;
 
