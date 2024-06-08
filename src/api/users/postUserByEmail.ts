@@ -14,7 +14,7 @@ const checkPassword = async (password: string, hash: string) => {
 };
 const router = express.Router();
 
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user: User = (await queryGetuserByEmail(email)) as User;
