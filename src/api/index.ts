@@ -1,7 +1,7 @@
 import express from "express";
 import plantsOfUser from "./plants/getAllPlantsOfUser";
 import allPlants from "./plants/getAllPlants";
-import user from "./users/getUserByUserId";
+import user from "./users/getUserByEmail";
 import register from "./users/addUser";
 
 const router = express.Router();
