@@ -46,6 +46,13 @@ const createUserObject = (
     accountCreated: accountCreated,
   };
 };
+const validateEmail = async(email: string): Promise<void> => {
+  const validateEmail = await validate({ email: email, validateSMTP: false });
+  const isEmailValid: boolean = validateEmail.valid;
+
+  if (!isEmailValid)
+    throw new UnprocessableContentError(errorMessages.invalidEmail);
+};
 const doesUserAlreadyExist = async (email: string): Promise<void> => {
   const foundUser: User = (await queryGetuserByEmail(email)) as User;
 
@@ -57,12 +64,8 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   try {
     const { email, fullName, password } = req.body;
-    const validateEmail = await validate({ email: email, validateSMTP: false });
-    const isEmailValid: boolean = validateEmail.valid;
 
-    if (!isEmailValid)
-      throw new UnprocessableContentError(errorMessages.invalidEmail);
-
+    validateEmail(email);
     doesUserAlreadyExist(email);
 
     const userId: string = uuidv4();
