@@ -1,16 +1,17 @@
-import express from 'express';
-import { createResponseObject } from '../../common/common';
-import { getPlants } from '../../database/plants/allPlants';
+import express from "express";
+import { createResponseObject, handleErrors } from "../../common/common";
+import { Plant } from "../../types/plant/plant";
+import { queryGetAllPlants } from "../../database/plants/queryGetAllPlants";
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get("/plants", async (req, res) => {
 	try {
-		const allPlants = await getPlants();
+		const allPlants: Plant[] = (await queryGetAllPlants()) as Plant[];
 
 		return createResponseObject(200, allPlants, res);
 	} catch (error) {
-		return error;
+		return handleErrors(error, res);
 	}
 });
 

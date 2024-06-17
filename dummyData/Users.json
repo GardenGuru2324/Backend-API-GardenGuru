@@ -18,5 +18,15 @@
 		"email": "adminRenzo@example.com",
 		"fullName": "Renzo Declerck",
 		"accountCreated": 1603046400
+	},
+	{
+		"userId": "a79740aa-3382-41c2-8baa-e999f56f0dde",
+		"userName": "admin",
+		"password": "$2a$12$N.7.wzAYOuSFIJdTetqNhOFJpRRyfUnCS/qzAUK2nhDjne2uF7YtS",
+		"ratingPlaced": true,
+		"profilePicture": "https://example.com/profile/johndoe.jpg",
+		"email": "admin@example.com",
+		"fullName": "Admin",
+		"accountCreated": 1603046400
 	}
 ]
