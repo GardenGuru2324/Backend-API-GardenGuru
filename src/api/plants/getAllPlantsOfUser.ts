@@ -4,9 +4,7 @@ import { queryGetAllPlantsOfUser } from "../../database/plants/queryGetAllPlants
 import { Plant } from "../../types/plant/plant";
 import { ConflictError } from "../../errors/error";
 import { errorMessages } from "../../errors/errorMessages";
-import { doesUserExist, validateUser } from "../../common/users/common";
-import { User } from "../../types/user/user";
-import { queryGetUserByUserId } from "../../database/users/queryGetUserByUserId";
+import { validateUser } from "../../common/users/common";
 import { PlantLocation } from "../../types/plantLocation/plantLocation";
 import { queryGetPlantLocationByLocationName } from "../../database/plantLocations/queryGetPlantLocationByLocationName";
 import { doesPlantLocationExist } from "../../common/plants/common";
@@ -22,6 +20,7 @@ router.get("/user/:userId/plants", async (req, res) => {
     let allPlantsOfUser: Plant[] = (await queryGetAllPlantsOfUser(userId)) as Plant[];
 
     checkIfUserHasPlants(allPlantsOfUser);
+
     if (plantLocationName !== undefined && plantLocationName !== "") {
       const plantLocation: PlantLocation = await validatePlantLocation(plantLocationName);
       allPlantsOfUser = allPlantsOfUser.filter((plant: Plant) => plant.locationId === plantLocation.locationId);

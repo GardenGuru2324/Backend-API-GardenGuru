@@ -1,13 +1,11 @@
 import express from "express";
 import { createResponseObject, handleErrors, isNullOrUndefined } from "../../common/common";
 import { queryDeletePlantByPlantIdAndUserId } from "../../database/plants/queryDeletePlantByPlantId";
-import { doesUserExist, validateUser } from "../../common/users/common";
-import { User } from "../../types/user/user";
+import { validateUser } from "../../common/users/common";
 import { NotFoundError } from "../../errors/error";
 import { Plant } from "../../types/plant/plant";
 import { errorMessages } from "../../errors/errorMessages";
 import { queryGetPlantByPlantIdAndUserId } from "../../database/plants/queryGetPlantByPlantIdAndUserId";
-import { queryGetUserByUserId } from "../../database/users/queryGetUserByUserId";
 
 const router = express.Router();
 
