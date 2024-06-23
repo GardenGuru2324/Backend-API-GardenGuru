@@ -7,15 +7,10 @@ const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryGetuserByEmail = async (
-  email: string
-): Promise<User | unknown> => {
+export const queryGetUserByEmail = async (email: string): Promise<User | unknown> => {
   try {
     await connectDatabase();
-    return (await client
-      .db(database)
-      .collection("Users")
-      .findOne({ email: email })) as User;
+    return (await client.db(database).collection("Users").findOne({ email: email })) as User;
   } catch (error) {
     return error;
   } finally {
