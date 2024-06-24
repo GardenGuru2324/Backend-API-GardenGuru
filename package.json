@@ -9,6 +9,8 @@
 		"build": "tsc",
 		"start:dist": "node dist/src/index.js",
 		"test": "jest",
+		"format": "npm run prettier -- --write",
+		"format:check": "npm run prettier -- --check",
 		"lint": "eslint --cache . --max-warnings=0",
 		"lint:fix": "npm run lint -- --fix",
 		"typecheck": "tsc --noEmit",
