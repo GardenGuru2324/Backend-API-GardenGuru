@@ -1,5 +1,6 @@
-import { connectDatabase, closeDatabase } from '../db';
 import { MongoClient } from 'mongodb';
+
+import { connectDatabase, closeDatabase } from '../db';
 import { plants } from '../../data/plants';
 import { plantLocations } from '../../data/plantLocations';
 import { plantTips } from '../../data/plantTips';

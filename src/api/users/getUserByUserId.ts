@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { createResponseObject, handleErrors } from '../../common/common';
 import { validateUser } from '../../common/users/common';
 import { User } from '../../types/user/user';

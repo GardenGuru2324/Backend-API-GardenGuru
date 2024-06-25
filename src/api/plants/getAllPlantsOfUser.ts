@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { createResponseObject, handleErrors } from '../../common/common';
 import { queryGetAllPlantsOfUser } from '../../database/plants/queryGetAllPlantsOfUser';
 import { Plant } from '../../types/plant/plant';

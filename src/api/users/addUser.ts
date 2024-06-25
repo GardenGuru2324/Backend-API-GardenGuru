@@ -8,12 +8,12 @@ import {
 	uniqueNamesGenerator,
 } from 'unique-names-generator';
 import bcrypt from 'bcrypt';
+import validate from 'deep-email-validator';
 
 import { createResponseObject, handleErrors } from '../../common/common';
 import { User } from '../../types/user/user';
 import { CreateUser } from '../../types/user/createUser';
 import { queryAddUser } from '../../database/users/queryAddUser';
-import validate from 'deep-email-validator';
 import { ConflictError, UnprocessableContentError } from '../../errors/error';
 import { errorMessages } from '../../errors/errorMessages';
 import { queryGetUserByEmail } from '../../database/users/queryGetUserByEmail';

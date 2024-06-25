@@ -1,5 +1,6 @@
-import { connectDatabase, closeDatabase } from '../db';
 import { MongoClient } from 'mongodb';
+
+import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
 import { User } from '../../types/user/user';
 
