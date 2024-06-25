@@ -12,7 +12,9 @@ const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryInitializeDatabase = async (tableName: string) => {
+export const queryInitializeDatabase = async (
+	tableName: string,
+): Promise<unknown> => {
 	try {
 		await connectDatabase();
 		const data = determineData(tableName);
@@ -24,6 +26,7 @@ export const queryInitializeDatabase = async (tableName: string) => {
 	}
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const determineData = (tableName: string) => {
 	switch (tableName) {
 		case 'Plants':

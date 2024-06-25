@@ -35,7 +35,10 @@ router.delete('/user/:userId/plants/:plantId', async (req, res) => {
 	}
 });
 
-const checkIfUserHasPlant = async (plantId: string, userId: string) => {
+const checkIfUserHasPlant = async (
+	plantId: string,
+	userId: string,
+): Promise<void> => {
 	const plant: Plant = (await queryGetPlantByPlantIdAndUserId(
 		plantId,
 		userId,

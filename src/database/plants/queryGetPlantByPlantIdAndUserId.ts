@@ -10,7 +10,7 @@ const client = new MongoClient(uri);
 export const queryGetPlantByPlantIdAndUserId = async (
 	plantId: string,
 	userId: string,
-) => {
+): Promise<unknown> => {
 	try {
 		await connectDatabase();
 		return await client

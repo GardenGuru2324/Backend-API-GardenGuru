@@ -24,7 +24,7 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-const checkPassword = async (password: string, hash: string) => {
+const checkPassword = async (password: string, hash: string): Promise<void> => {
 	const match: boolean = await bcrypt.compare(password, hash);
 	if (!match) throw new UnauthorizedError(errorMessages.invalidPassword);
 };

@@ -52,13 +52,15 @@ const validatePlantLocation = async (
 	return plantLocation;
 };
 
-const checkIfUserHasPlants = (allPlantsOfUser: Plant[]) => {
+const checkIfUserHasPlants = (allPlantsOfUser: Plant[]): void => {
 	if (allPlantsOfUser.length === 0) {
 		throw new ConflictError(errorMessages.userHasNoPlants);
 	}
 };
 
-const checkIfUserHasPlantsOfLocation = (allPlantsOfUserOfLocation: Plant[]) => {
+const checkIfUserHasPlantsOfLocation = (
+	allPlantsOfUserOfLocation: Plant[],
+): void => {
 	if (allPlantsOfUserOfLocation.length === 0)
 		throw new ConflictError(errorMessages.userHasNoPlantsOfLocation);
 };

@@ -21,7 +21,7 @@ router.get('/user/:userId', async (req, res) => {
 		return handleErrors(error, res);
 	}
 });
-
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const createUserDisplayObject = (foundUser: User) => {
 	return {
 		userName: foundUser.userName,

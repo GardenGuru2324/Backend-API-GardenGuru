@@ -4,18 +4,29 @@ export const createResponseObject = (
 	statusCode: number,
 	body: any, // eslint-disable-line @typescript-eslint/no-explicit-any
 	res: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 ) => {
 	return res.status(statusCode).json(body);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleErrors = (error: any, res: any) => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const handleErrors = (
+	error: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+	res: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+) => {
 	const { message, statusCode } = checkErrorType(error);
+	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 	return createResponseObject(statusCode!, { message: message }, res);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const checkErrorType = (error: any) => {
+const checkErrorType = (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	error: any,
+): {
+	message: string | undefined;
+	statusCode: number | undefined;
+} => {
 	let message, statusCode;
 	for (const errorType of errorTypes) {
 		if (error instanceof errorType) {
@@ -28,6 +39,6 @@ const checkErrorType = (error: any) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isNullOrUndefined = (obj: any) => {
+export const isNullOrUndefined = (obj: any): boolean => {
 	return obj === null || obj === undefined;
 };

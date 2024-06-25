@@ -10,7 +10,7 @@ const client = new MongoClient(uri);
 export const queryDeletePlantByPlantIdAndUserId = async (
 	plantId: string,
 	userId: string,
-) => {
+): Promise<unknown> => {
 	try {
 		await connectDatabase();
 		await client

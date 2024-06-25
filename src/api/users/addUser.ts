@@ -50,7 +50,7 @@ router.post('/register', async (req, res) => {
 	}
 });
 
-const generateUserName = () => {
+const generateUserName = (): string => {
 	const customConfig: Config = {
 		dictionaries: [adjectives, colors, animals],
 		separator: '-',
