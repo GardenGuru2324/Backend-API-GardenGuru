@@ -14,7 +14,7 @@ module.exports = {
     env: {
       node: true,
     },
-    ignorePatterns: ['.eslintrc.js', 'Backend-jest-GardenGuru/'],
+    ignorePatterns: ['.eslintrc.js', 'Backend-jest-GardenGuru/', 'node_modules/'],
     rules: {
       '@typescript-eslint/interface-name-prefix': 'off',
       '@typescript-eslint/explicit-function-return-type': 'warn',
