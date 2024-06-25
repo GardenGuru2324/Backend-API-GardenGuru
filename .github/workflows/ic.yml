@@ -25,10 +25,7 @@ jobs:
                   node-version: '20'
 
             - name: Install Dependencies
-              run: |
-                  npm install
-                  cd Backend-jest-GardenGuru
-                  npm install
+              run: npm install
 
             - name: Check Formatting
               run: npm run format:check
