@@ -1,0 +1,37 @@
+name: IC-workflow
+
+on:
+    pull_request:
+        branches: [master, dev]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  submodules: 'recursive'
+
+            - name: Update Submodule
+              run: |
+                  cd ../../Backend-jest-GardenGuru
+                  git pull origin master
+
+            - name: Use Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: '14'
+
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Check Formatting
+              run: npm run format:check
+
+            - name: Run Linter
+              run: npm run lint
+
+            - name: Run Tests
+              run: npm test
