@@ -33,5 +33,10 @@ jobs:
             - name: Run Linter
               run: npm run lint
 
+            - name: Install Tests Dependencies
+              run: |
+                  cd Backend-jest-GardenGuru
+                  npm instal
+                  
             - name: Run Tests
               run: npm test
