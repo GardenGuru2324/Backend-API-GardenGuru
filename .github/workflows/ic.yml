@@ -16,7 +16,7 @@ jobs:
 
             - name: Update Submodule
               run: |
-                  cd ../../Backend-jest-GardenGuru
+                  cd Backend-jest-GardenGuru
                   git pull origin master
 
             - name: Use Node.js
