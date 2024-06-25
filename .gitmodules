@@ -1,0 +1,3 @@
+[submodule "Backend-jest-GardenGuru"]
+	path = Backend-jest-GardenGuru
+	url = https://github.com/GardenGuru2324/Backend-jest-GardenGuru.git
