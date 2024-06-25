@@ -8,7 +8,7 @@
 		"dev": "nodemon src/index.ts",
 		"build": "tsc",
 		"start:dist": "node dist/src/index.js",
-		"test": "jest",
+		"test": "cd Backend-jest-GardenGuru && npm test",
 		"format": "npm run prettier -- --write",
 		"format:check": "npm run prettier -- --check",
 		"lint": "eslint --cache . --max-warnings=0",
