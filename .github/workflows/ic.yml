@@ -54,6 +54,7 @@ jobs:
                   touch .env
                   echo MONGO_CONNECT_URL=${{ secrets.MONGO_CONNECT_URL }} >> .env
                   echo DATABASE=${{ secrets.DATABASE }} >> .env
+                  cat .env
 
             - name: Start server
               run: npm run start
