@@ -39,6 +39,8 @@ jobs:
                   npm instal
 
             - name: Create .env file
+              env:
+                BASE_URL: ${{ secrets.BASE_URL }}
               run: |
                   cd Backend-jest-GardenGuru
                   touch .env
