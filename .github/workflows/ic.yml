@@ -24,6 +24,15 @@ jobs:
               with:
                   node-version: '20'
 
+            - name: Create .env file for backend-repo
+              env:
+                MONGO_CONNECT_URL: ${{ secrets.MONGO_CONNECT_URL }}
+                DATABASE: ${{ secrets.DATABASE }}
+              run: |
+                  touch .env
+                  echo MONGO_CONNECT_URL=${{ secrets.MONGO_CONNECT_URL }} >> .env
+                  echo DATABASE=${{ secrets.DATABASE }} >> .env
+
             - name: Install Dependencies
               run: npm install
 
@@ -33,27 +42,18 @@ jobs:
             - name: Run Linter
               run: npm run lint
 
-            - name: Install Tests Dependencies
-              run: |
-                  cd Backend-jest-GardenGuru
-                  npm instal
-
             - name: Create .env file for test-repo
               env:
                 BASE_URL: ${{ secrets.BASE_URL }}
               run: |
                   cd Backend-jest-GardenGuru
                   touch .env
-                  echo BASE_URL=${{ secrets.BASE_URL }} >> .env
+                  echo BASE_URL=${{ secrets.BASE_URL }} >> .env          
 
-            - name: Create .env file for backend-repo
-              env:
-                MONGO_CONNECT_URL: ${{ secrets.MONGO_CONNECT_URL }}
-                DATABASE: ${{ secrets.DATABASE }}
+            - name: Install Tests Dependencies
               run: |
-                  touch .env
-                  echo MONGO_CONNECT_URL=${{ secrets.MONGO_CONNECT_URL }} >> .env
-                  echo DATABASE=${{ secrets.DATABASE }} >> .env
+                  cd Backend-jest-GardenGuru
+                  npm instal
 
             - name: Start server
               run: npm run start
