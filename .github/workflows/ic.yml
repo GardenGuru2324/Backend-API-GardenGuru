@@ -46,5 +46,8 @@ jobs:
                   touch .env
                   echo BASE_URL=${{ secrets.BASE_URL }} >> .env
 
+            - name: Start server
+              run: npm run start
+
             - name: Run Tests
               run: npm test
