@@ -53,7 +53,7 @@ jobs:
             - name: Install Tests Dependencies
               run: |
                   cd Backend-jest-GardenGuru
-                  npm instal
+                  npm install
 
             - name: Start server
               run: npm run start
