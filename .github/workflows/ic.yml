@@ -6,6 +6,8 @@ on:
 
 jobs:
     test:
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
         runs-on: ubuntu-latest
 
         steps:
@@ -40,5 +42,3 @@ jobs:
                   
             - name: Run Tests
               run: npm test
-              env:
-                BASE_URL: ${{ secrets.BASE_URL }}
