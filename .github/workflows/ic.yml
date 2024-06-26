@@ -6,8 +6,6 @@ on:
 
 jobs:
     test:
-        env:
-          BASE_URL: ${{ secrets.BASE_URL }}
         runs-on: ubuntu-latest
 
         steps:
@@ -39,6 +37,14 @@ jobs:
               run: |
                   cd Backend-jest-GardenGuru
                   npm instal
-                  
+
+            - name: Create .env file
+              run: |
+                  cd Backend-jest-GardenGuru
+                  touch .env
+                  echo BASE_URL=${{ secrets.BASE_URL }} >> .env
+              env:
+                BASE_URL: ${{ secrets.BASE_URL }}
+
             - name: Run Tests
               run: npm test
