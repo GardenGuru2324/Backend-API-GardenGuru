@@ -46,7 +46,7 @@ jobs:
               run: |
                   cd Backend-jest-GardenGuru
                   touch .env
-                  echo BASE_URL=${{ secrets.BASE_URL }} >> .env            - me: Start server
+                  echo BASE_URL=${{ secrets.BASE_URL }} >> .env
               
             - name: Start Server
               run: |
