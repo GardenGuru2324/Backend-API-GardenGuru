@@ -43,6 +43,7 @@ jobs:
                   cd Backend-jest-GardenGuru
                   touch .env
                   echo BASE_URL=${{ secrets.BASE_URL }} >> .env
+                  cat .env
               env:
                 BASE_URL: ${{ secrets.BASE_URL }}
 
