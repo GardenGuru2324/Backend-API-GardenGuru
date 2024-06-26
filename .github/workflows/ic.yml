@@ -38,21 +38,22 @@ jobs:
                   cd Backend-jest-GardenGuru
                   npm install
 
-            - name: Create .env files
+            - name: Create .env file
               env:
                 MONGO_CONNECT_URL: ${{ secrets.MONGO_CONNECT_URL }}
                 DATABASE: ${{ secrets.DATABASE }}
                 BASE_URL: ${{ secrets.BASE_URL }}
               run: |
-                  touch .env
-                  echo MONGO_CONNECT_URL=${{ secrets.MONGO_CONNECT_URL }} >> .env
-                  echo DATABASE=${{ secrets.DATABASE }} >> .env
                   cd Backend-jest-GardenGuru
                   touch .env
                   echo BASE_URL=${{ secrets.BASE_URL }} >> .env            - me: Start server
               
             - name: Start Server
-              run: npm run start
+              run: |
+                  touch .env
+                  echo MONGO_CONNECT_URL=${{ secrets.MONGO_CONNECT_URL }} >> .env
+                  echo DATABASE=${{ secrets.DATABASE }} >> .env 
+                  npm run start
 
             - name: Run Tests
               run: npm test
