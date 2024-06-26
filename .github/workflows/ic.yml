@@ -45,8 +45,8 @@ jobs:
                   cd Backend-jest-GardenGuru
                   touch .env
                   echo BASE_URL=${{ secrets.BASE_URL }} >> .env
-              
-            - name: Start Server
+
+            - name: Run Tests
               env:
                 MONGO_CONNECT_URL: ${{ secrets.MONGO_CONNECT_URL }}
                 DATABASE: ${{ secrets.DATABASE }}
@@ -54,7 +54,4 @@ jobs:
                   touch .env
                   echo MONGO_CONNECT_URL=${{ secrets.MONGO_CONNECT_URL }} >> .env
                   echo DATABASE=${{ secrets.DATABASE }} >> .env 
-                  npm run start
-
-            - name: Run Tests
-              run: npm test
+                  npm run ic:test
