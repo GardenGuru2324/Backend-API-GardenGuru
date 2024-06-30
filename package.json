@@ -4,7 +4,7 @@
 	"description": "An express API with a mongoDB databse for the projecr Garden Guru",
 	"main": "src/index.ts",
 	"scripts": {
-		"start": "ts-node src/index.ts",
+		"start": "ts-node src/index.ts || exit 0",
 		"dev": "nodemon src/index.ts",
 		"build": "tsc",
 		"start:dist": "node dist/src/index.js",
