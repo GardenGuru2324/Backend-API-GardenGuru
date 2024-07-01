@@ -8,13 +8,19 @@ import { errorMessages } from '../../errors/errorMessages';
 import { validateUser } from '../../common/users/common';
 import { PlantLocation } from '../../types/plantLocation/plantLocation';
 import { queryGetPlantLocationByLocationName } from '../../database/plantLocations/queryGetPlantLocationByLocationName';
-import { doesPlantLocationExist } from '../../common/plants/common';
+import {
+	doesPlantLocationExist,
+	validatePlant,
+} from '../../common/plants/common';
 
 const router = express.Router();
 
 router.get('/user/:userId/plants', async (req, res) => {
 	const userId = req.params.userId;
 	const plantLocationName: string | undefined = req.query.location as
+		| string
+		| undefined;
+	const plantName: string | undefined = req.query.search as
 		| string
 		| undefined;
 	try {
@@ -33,6 +39,14 @@ router.get('/user/:userId/plants', async (req, res) => {
 				(plant: Plant) => plant.locationId === plantLocation.locationId,
 			);
 			checkIfUserHasPlantsOfLocation(allPlantsOfUser);
+		}
+
+		if (plantName !== undefined && plantName !== '') {
+			const plantByName: Plant = await validatePlant(plantName);
+			allPlantsOfUser = allPlantsOfUser.filter(
+				(plant: Plant) => plant.plantName === plantByName.plantName,
+			);
+			checkIfUserHasPlants(allPlantsOfUser);
 		}
 
 		return createResponseObject(200, allPlantsOfUser, res);
