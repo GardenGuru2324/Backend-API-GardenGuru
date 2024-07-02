@@ -42,9 +42,8 @@ router.get('/user/:userId/plants', async (req, res) => {
 		}
 
 		if (plantName !== undefined && plantName !== '') {
-			const plantByName: Plant = await validatePlant(plantName);
 			allPlantsOfUser = allPlantsOfUser.filter(
-				(plant: Plant) => plant.plantName === plantByName.plantName,
+				(plant: Plant) => plant.plantName.includes(plantName),
 			);
 			checkIfUserHasPlants(allPlantsOfUser);
 		}
