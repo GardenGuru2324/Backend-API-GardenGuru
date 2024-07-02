@@ -1,12 +1,15 @@
-import { connectDatabase, closeDatabase } from '../db';
 import { MongoClient } from 'mongodb';
+
+import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
 
 const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryClearDatabase = async (tableName: string) => {
+export const queryClearDatabase = async (
+	tableName: string,
+): Promise<unknown> => {
 	try {
 		await connectDatabase();
 

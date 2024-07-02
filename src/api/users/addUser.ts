@@ -1,63 +1,27 @@
-import express from "express";
-import { v4 as uuidv4 } from "uuid";
-import { Config, adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
-import bcrypt from "bcrypt";
+import express from 'express';
+import { v4 as uuidv4 } from 'uuid';
+import {
+	Config,
+	adjectives,
+	animals,
+	colors,
+	uniqueNamesGenerator,
+} from 'unique-names-generator';
+import bcrypt from 'bcrypt';
+import validate from 'deep-email-validator';
 
-import { createResponseObject, handleErrors } from "../../common/common";
-import { User } from "../../types/user/user";
-import { CreateUser } from "../../types/user/createUser";
-import { queryAddUser } from "../../database/users/queryAddUser";
-import validate from "deep-email-validator";
-import { ConflictError, UnprocessableContentError } from "../../errors/error";
-import { errorMessages } from "../../errors/errorMessages";
-import { queryGetuserByEmail } from "../../database/users/queryGetUserByEmail";
-import { queryGetUserByUserId } from "../../database/users/queryGetUserByUserId";
-
-const generateUserName = () => {
-	const customConfig: Config = {
-		dictionaries: [adjectives, colors, animals],
-		separator: "-",
-		length: 3,
-		style: "lowerCase"
-	};
-
-	return uniqueNamesGenerator(customConfig);
-};
-
-const createUserObject = (
-	userId: string,
-	userName: string,
-	password: string,
-	email: string,
-	fullName: string,
-	accountCreated: number
-): CreateUser => {
-	return {
-		userId: userId,
-		userName: userName,
-		password: password,
-		email: email,
-		fullName: fullName,
-		accountCreated: accountCreated
-	};
-};
-
-const validateEmail = async (email: string): Promise<void> => {
-	const validateEmail = await validate({ email: email, validateSMTP: false });
-	const isEmailValid: boolean = validateEmail.valid;
-
-	if (!isEmailValid) throw new UnprocessableContentError(errorMessages.invalidEmail);
-};
-
-const doesUserAlreadyExist = async (email: string): Promise<void> => {
-	const foundUser: User = (await queryGetuserByEmail(email)) as User;
-
-	if (foundUser !== null) throw new ConflictError(errorMessages.userAlreadyExist);
-};
+import { createResponseObject, handleErrors } from '../../common/common';
+import { User } from '../../types/user/user';
+import { CreateUser } from '../../types/user/createUser';
+import { queryAddUser } from '../../database/users/queryAddUser';
+import { ConflictError, UnprocessableContentError } from '../../errors/error';
+import { errorMessages } from '../../errors/errorMessages';
+import { queryGetUserByEmail } from '../../database/users/queryGetUserByEmail';
+import { queryGetUserByUserId } from '../../database/users/queryGetUserByUserId';
 
 const router = express.Router();
 
-router.post("/register", async (req, res) => {
+router.post('/register', async (req, res) => {
 	const { email, fullName, password } = req.body;
 
 	try {
@@ -74,7 +38,7 @@ router.post("/register", async (req, res) => {
 			hashPassword,
 			email,
 			fullName,
-			accountCreated
+			accountCreated,
 		);
 
 		await queryAddUser(createUser);
@@ -85,5 +49,49 @@ router.post("/register", async (req, res) => {
 		return handleErrors(error, res);
 	}
 });
+
+const generateUserName = (): string => {
+	const customConfig: Config = {
+		dictionaries: [adjectives, colors, animals],
+		separator: '-',
+		length: 3,
+		style: 'lowerCase',
+	};
+
+	return uniqueNamesGenerator(customConfig);
+};
+
+const createUserObject = (
+	userId: string,
+	userName: string,
+	password: string,
+	email: string,
+	fullName: string,
+	accountCreated: number,
+): CreateUser => {
+	return {
+		userId: userId,
+		userName: userName,
+		password: password,
+		email: email,
+		fullName: fullName,
+		accountCreated: accountCreated,
+	};
+};
+
+const validateEmail = async (email: string): Promise<void> => {
+	const validateEmail = await validate({ email: email, validateSMTP: false });
+	const isEmailValid: boolean = validateEmail.valid;
+
+	if (!isEmailValid)
+		throw new UnprocessableContentError(errorMessages.invalidEmail);
+};
+
+const doesUserAlreadyExist = async (email: string): Promise<void> => {
+	const foundUser: User = (await queryGetUserByEmail(email)) as User;
+
+	if (foundUser !== null)
+		throw new ConflictError(errorMessages.userAlreadyExist);
+};
 
 export default router;

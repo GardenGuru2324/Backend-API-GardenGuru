@@ -1,15 +1,32 @@
 import { errorTypes } from '../errors/error';
 
-export const createResponseObject = (statusCode: number, body: any, res: any) => {
+export const createResponseObject = (
+	statusCode: number,
+	body: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+	res: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+) => {
 	return res.status(statusCode).json(body);
 };
 
-export const handleErrors = (error: any, res: any) => {
-	let { message, statusCode } = checkErrorType(error);
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const handleErrors = (
+	error: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+	res: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+) => {
+	const { message, statusCode } = checkErrorType(error);
+	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 	return createResponseObject(statusCode!, { message: message }, res);
 };
 
-const checkErrorType = (error: any) => {
+const checkErrorType = (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	error: any,
+): {
+	message: string | undefined;
+	statusCode: number | undefined;
+} => {
 	let message, statusCode;
 	for (const errorType of errorTypes) {
 		if (error instanceof errorType) {
@@ -21,6 +38,7 @@ const checkErrorType = (error: any) => {
 	return { message, statusCode };
 };
 
-export const isNullOrUndefined = (obj: any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isNullOrUndefined = (obj: any): boolean => {
 	return obj === null || obj === undefined;
 };
