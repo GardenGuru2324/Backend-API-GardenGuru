@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+
 import api from './api';
 
 const app = express();
@@ -9,7 +10,7 @@ app.use(cors());
 
 app.get('/', (req, res) => {
 	res.json({
-		message: 'GardenGuru backend API'
+		message: 'GardenGuru backend API',
 	});
 });
 

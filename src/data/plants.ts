@@ -5,7 +5,7 @@ export const plants = [
 		locationId: 'jest_plantLocation_1',
 		plantImage: 'https://dummyFoto.jpg',
 		plantedDate: 1602960000,
-		userId: 'jest_user_1'
+		userId: 'jest_user_1',
 	},
 	{
 		plantId: 'jest_plant_2_user_1',
@@ -13,7 +13,7 @@ export const plants = [
 		locationId: 'jest_plantLocation_1',
 		plantImage: 'https://dummyFoto.jpg',
 		plantedDate: 1603046400,
-		userId: 'jest_user_1'
+		userId: 'jest_user_1',
 	},
 	{
 		plantId: 'jest_plant_3_user_2',
@@ -21,6 +21,6 @@ export const plants = [
 		locationId: 'jest_plantLocation_2',
 		plantImage: 'https://dummyFoto.jpg',
 		plantedDate: 1603132800,
-		userId: 'jest_user_2'
-	}
+		userId: 'jest_user_2',
+	},
 ];
