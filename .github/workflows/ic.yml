@@ -15,10 +15,7 @@ jobs:
                   submodules: 'recursive'
 
             - name: Update Submodule
-              run: |
-                  cd Backend-jest-GardenGuru
-                  git config pull.rebase false
-                  git pull origin dev
+              run: git submodule update --remote --merge
 
             - name: Use Node.js
               uses: actions/setup-node@v1
