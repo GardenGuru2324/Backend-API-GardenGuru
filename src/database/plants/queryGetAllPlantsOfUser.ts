@@ -12,7 +12,7 @@ export const queryGetAllPlantsOfUser = async (
 	userId: string,
 	page: number,
 ): Promise<Plant[] | unknown> => {
-	const itemPerPage = 4;
+	const itemPerPage = 10;
 	try {
 		await connectDatabase();
 		return await client
