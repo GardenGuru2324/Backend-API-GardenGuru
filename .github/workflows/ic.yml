@@ -17,6 +17,7 @@ jobs:
             - name: Update Submodule
               run: |
                   cd Backend-jest-GardenGuru
+                  git config pull.rebase false
                   git pull origin dev
 
             - name: Use Node.js
