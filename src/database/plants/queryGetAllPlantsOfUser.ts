@@ -10,13 +10,17 @@ const client = new MongoClient(uri);
 
 export const queryGetAllPlantsOfUser = async (
 	userId: string,
+	page: number,
 ): Promise<Plant[] | unknown> => {
+	const itemPerPage = 4;
 	try {
 		await connectDatabase();
 		return await client
 			.db(database)
 			.collection('Plants')
 			.find({ userId: userId })
+			.skip((page - 1) * itemPerPage)
+			.limit(itemPerPage)
 			.toArray();
 	} catch (error) {
 		return error;
