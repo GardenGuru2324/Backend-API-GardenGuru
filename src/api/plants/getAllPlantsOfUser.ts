@@ -8,10 +8,7 @@ import { errorMessages } from '../../errors/errorMessages';
 import { validateUser } from '../../common/users/common';
 import { PlantLocation } from '../../types/plantLocation/plantLocation';
 import { queryGetPlantLocationByLocationName } from '../../database/plantLocations/queryGetPlantLocationByLocationName';
-import {
-	doesPlantLocationExist,
-	validatePlant,
-} from '../../common/plants/common';
+import { doesPlantLocationExist } from '../../common/plants/common';
 
 const router = express.Router();
 
