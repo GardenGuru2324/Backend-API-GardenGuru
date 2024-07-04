@@ -8,10 +8,7 @@ import { errorMessages } from '../../errors/errorMessages';
 import { validateUser } from '../../common/users/common';
 import { PlantLocation } from '../../types/plantLocation/plantLocation';
 import { queryGetPlantLocationByLocationName } from '../../database/plantLocations/queryGetPlantLocationByLocationName';
-import {
-	doesPlantLocationExist,
-	validatePlant,
-} from '../../common/plants/common';
+import { doesPlantLocationExist } from '../../common/plants/common';
 
 const router = express.Router();
 
@@ -23,11 +20,13 @@ router.get('/user/:userId/plants', async (req, res) => {
 	const plantName: string | undefined = req.query.search as
 		| string
 		| undefined;
+	const page = parseInt(req.query.page as string) || 1;
 	try {
 		await validateUser(userId);
 
 		let allPlantsOfUser: Plant[] = (await queryGetAllPlantsOfUser(
 			userId,
+			page,
 		)) as Plant[];
 
 		checkIfUserHasPlants(allPlantsOfUser);
@@ -42,8 +41,8 @@ router.get('/user/:userId/plants', async (req, res) => {
 		}
 
 		if (plantName !== undefined && plantName !== '') {
-			allPlantsOfUser = allPlantsOfUser.filter(
-				(plant: Plant) => plant.plantName.includes(plantName),
+			allPlantsOfUser = allPlantsOfUser.filter((plant: Plant) =>
+				plant.plantName.includes(plantName),
 			);
 			checkIfUserHasPlants(allPlantsOfUser);
 		}
