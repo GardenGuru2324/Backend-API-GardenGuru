@@ -7,5 +7,14 @@ export interface Plant {
 	locationId: string;
 	plantImage: string;
 	plantedDate: number;
+	isVegetable: boolean;
+	plantGrowthHabit: string;
+	plantAvgHeight: number;
+	plantMaxHeight: number;
+	plantGrowthRate: string;
+	plantDaysToHarvest: number;
+	plantRowSpacing: number;
+	plantMinTemp: number;
+	plantMaxTemp: number;
 	userId: string;
 }
