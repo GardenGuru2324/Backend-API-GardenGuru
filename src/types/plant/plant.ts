@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb';
+import { Double, ObjectId } from 'mongodb';
 
 export interface Plant {
 	_id: ObjectId;
@@ -9,11 +9,11 @@ export interface Plant {
 	plantedDate: number;
 	isVegetable: boolean;
 	plantGrowthHabit: string;
-	plantAvgHeight: number;
-	plantMaxHeight: number;
+	plantAvgHeight: Double;
+	plantMaxHeight: Double;
 	plantGrowthRate: string;
 	plantDaysToHarvest: number;
-	plantRowSpacing: number;
+	plantRowSpacing: Double;
 	plantMinTemp: number;
 	plantMaxTemp: number;
 	userId: string;
