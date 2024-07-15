@@ -3,14 +3,10 @@ import express from 'express';
 import {
 	createResponseObject,
 	handleErrors,
-	isNullOrUndefined,
 } from '../../common/common';
 import { queryDeletePlantByPlantIdAndUserId } from '../../database/plants/queryDeletePlantByPlantId';
 import { validateUser } from '../../common/users/common';
-import { NotFoundError } from '../../errors/error';
-import { Plant } from '../../types/plant/plant';
-import { errorMessages } from '../../errors/errorMessages';
-import { queryGetPlantByPlantIdAndUserId } from '../../database/plants/queryGetPlantByPlantIdAndUserId';
+import { checkIfUserHasPlant } from '../../common/plants/common';
 
 const router = express.Router();
 
@@ -35,17 +31,4 @@ router.delete('/user/:userId/plants/:plantId', async (req, res) => {
 	}
 });
 
-const checkIfUserHasPlant = async (
-	plantId: string,
-	userId: string,
-): Promise<void> => {
-	const plant: Plant = (await queryGetPlantByPlantIdAndUserId(
-		plantId,
-		userId,
-	)) as Plant;
-
-	if (isNullOrUndefined(plant)) {
-		throw new NotFoundError(errorMessages.plantNotFound);
-	}
-};
 export default router;
