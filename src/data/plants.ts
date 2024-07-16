@@ -6,6 +6,15 @@ export const plants = [
 		plantImage: 'https://dummyFoto.jpg',
 		plantedDate: 1602960000,
 		userId: 'jest_user_1',
+		isVegetable: false,
+		plantGrowthHabit: 'Climbing',
+		plantAvgHeight: 1,
+		plantMaxHeight: 2,
+		plantGrowthRate: 'Fast',
+		plantDaysToHarvest: 0,
+		plantRowSpacing: 0,
+		plantMinTemp: 18,
+		plantMaxTemp: 30
 	},
 	{
 		plantId: 'jest_plant_2_user_1',
@@ -14,6 +23,15 @@ export const plants = [
 		plantImage: 'https://dummyFoto.jpg',
 		plantedDate: 1603046400,
 		userId: 'jest_user_1',
+		isVegetable: false,
+		plantGrowthHabit: '',
+		plantAvgHeight: 0,
+		plantMaxHeight: 0,
+		plantGrowthRate: '',
+		plantDaysToHarvest: 0,
+		plantRowSpacing: 0,
+		plantMinTemp: 0,
+		plantMaxTemp: 0
 	},
 	{
 		plantId: 'jest_plant_3_user_2',
@@ -22,5 +40,14 @@ export const plants = [
 		plantImage: 'https://dummyFoto.jpg',
 		plantedDate: 1603132800,
 		userId: 'jest_user_2',
-	},
+		isVegetable: true,
+		plantGrowthHabit: 'Upright',
+		plantAvgHeight: 0.6,
+		plantMaxHeight: 1.0,
+		plantGrowthRate: 'Moderate',
+		plantDaysToHarvest: 0,
+		plantRowSpacing: 0.3,
+		plantMinTemp: 10,
+		plantMaxTemp: 30
+	}
 ];
