@@ -1,5 +1,6 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import { Double } from 'mongodb';
 
 import {
 	createResponseObject,
@@ -13,7 +14,6 @@ import { errorMessages } from '../../errors/errorMessages';
 import { queryGetPlantByPlantNameAndUserId } from '../../database/plants/queryGetPlantByPlantNameAndUserId';
 import { queryAddPlant } from '../../database/plants/queryAddPlant';
 import { CreatePlant } from '../../types/plant/createPlant';
-import { Double } from 'mongodb';
 
 const router = express.Router();
 
