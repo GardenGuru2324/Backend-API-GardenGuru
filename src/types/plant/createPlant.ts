@@ -1,4 +1,4 @@
-import { Double } from "mongodb";
+import { Double } from 'mongodb';
 
 export interface CreatePlant {
 	plantId: string;

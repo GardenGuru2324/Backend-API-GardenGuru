@@ -32,7 +32,7 @@ router.post('/user/:userId/plant', async (req, res) => {
 		plantRowSpacing,
 		plantMinTemp,
 		plantMaxTemp,
-	} = req.body
+	} = req.body;
 
 	try {
 		await validateUser(userId);
