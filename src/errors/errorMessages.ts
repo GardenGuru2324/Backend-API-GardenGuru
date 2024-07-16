@@ -10,6 +10,7 @@ export const errorMessages = {
 		'Plant not found. Please verify the plant ID and try again. Note: You may not be the owner of this plant.',
 	userAlreadyExist:
 		'A user with this email already exist. Please check your email or try to log in.',
+	plantAlreadyExist: 'You already have this plant in your profile!',
 	invalidEmail: 'Email is not valid. Please try again!',
 	invalidPassword: 'Wrong password. Please try again!',
 };

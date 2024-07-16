@@ -1,0 +1,121 @@
+import express from 'express';
+import { v4 as uuidv4 } from 'uuid';
+
+import {
+	createResponseObject,
+	handleErrors,
+	isNullOrUndefined,
+} from '../../common/common';
+import { validateUser } from '../../common/users/common';
+import { ConflictError } from '../../errors/error';
+import { Plant } from '../../types/plant/plant';
+import { errorMessages } from '../../errors/errorMessages';
+import { queryGetPlantByPlantNameAndUserId } from '../../database/plants/queryGetPlantByPlantNameAndUserId';
+import { queryAddPlant } from '../../database/plants/queryAddPlant';
+import { CreatePlant } from '../../types/plant/createPlant';
+import { Double } from 'mongodb';
+
+const router = express.Router();
+
+router.post('/user/:userId/plant', async (req, res) => {
+	const userId: string = req.params.userId as string;
+	const {
+		plantName,
+		locationId,
+		plantImage,
+		isVegetable,
+		plantGrowthHabit,
+		plantAvgHeight,
+		plantMaxHeight,
+		plantGrowthRate,
+		plantDaysToHarvest,
+		plantRowSpacing,
+		plantMinTemp,
+		plantMaxTemp,
+	} = req.body
+
+	try {
+		await validateUser(userId);
+		await checkIfUserAlreadyHasPlant(plantName, userId);
+
+		const plantId: string = uuidv4();
+		const plantedDate: number = Date.now();
+		const plant: CreatePlant = createPlantObject(
+			plantId,
+			plantName,
+			locationId,
+			plantImage,
+			plantedDate,
+			isVegetable,
+			plantGrowthHabit,
+			plantAvgHeight,
+			plantMaxHeight,
+			plantGrowthRate,
+			plantDaysToHarvest,
+			plantRowSpacing,
+			plantMinTemp,
+			plantMaxTemp,
+			userId,
+		);
+
+		await queryAddPlant(plant);
+
+		return createResponseObject(
+			201,
+			{ message: 'Plant successfully added to your profile!' },
+			res,
+		);
+	} catch (error) {
+		return handleErrors(error, res);
+	}
+});
+
+const checkIfUserAlreadyHasPlant = async (
+	plantName: string,
+	userId: string,
+): Promise<void> => {
+	const foundPlant: Plant = (await queryGetPlantByPlantNameAndUserId(
+		plantName,
+		userId,
+	)) as Plant;
+
+	if (!isNullOrUndefined(foundPlant))
+		throw new ConflictError(errorMessages.plantAlreadyExist);
+};
+const createPlantObject = (
+	plantId: string,
+	plantName: string,
+	locationId: string,
+	plantImage: string,
+	plantedDate: number,
+	isVegetable: boolean,
+	plantGrowthHabit: string,
+	plantAvgHeight: Double,
+	plantMaxHeight: Double,
+	plantGrowthRate: string,
+	plantDaysToHarvest: number,
+	plantRowSpacing: Double,
+	plantMinTemp: number,
+	plantMaxTemp: number,
+	userId: string,
+): CreatePlant => {
+	return {
+		plantId: plantId,
+		plantName: plantName,
+		locationId: locationId,
+		plantImage: plantImage,
+		plantedDate: plantedDate,
+		isVegetable: isVegetable,
+		plantGrowthHabit: plantGrowthHabit,
+		plantAvgHeight: plantAvgHeight,
+		plantMaxHeight: plantMaxHeight,
+		plantGrowthRate: plantGrowthRate,
+		plantDaysToHarvest: plantDaysToHarvest,
+		plantRowSpacing: plantRowSpacing,
+		plantMinTemp: plantMinTemp,
+		plantMaxTemp: plantMaxTemp,
+		userId: userId,
+	};
+};
+
+export default router;
