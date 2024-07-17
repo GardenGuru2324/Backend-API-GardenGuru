@@ -3,7 +3,7 @@ import express from 'express';
 import plant from './plants/getPlantByPlantId';
 import plantsOfUser from './plants/getAllPlantsOfUser';
 import allPlants from './plants/getAllPlants';
-import addPlantByPlantName from './plants/addPlant';
+import addPlant from './plants/addPlant';
 import deletePlantByPlantId from './plants/deletePlantByPlantId';
 import login from './users/postUserByEmail';
 import register from './users/addUser';
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 router.use(plant);
 router.use(allPlants);
 router.use(plantsOfUser);
-router.use(addPlantByPlantName);
+router.use(addPlant);
 router.use(deletePlantByPlantId);
 
 // User
