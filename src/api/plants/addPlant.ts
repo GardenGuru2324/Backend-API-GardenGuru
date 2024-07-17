@@ -2,10 +2,7 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { Double } from 'mongodb';
 
-import {
-	createResponseObject,
-	handleErrors,
-} from '../../common/common';
+import { createResponseObject, handleErrors } from '../../common/common';
 import { validateUser } from '../../common/users/common';
 import { queryAddPlant } from '../../database/plants/queryAddPlant';
 import { CreatePlant } from '../../types/plant/createPlant';
