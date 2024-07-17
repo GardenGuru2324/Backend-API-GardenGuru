@@ -2,21 +2,21 @@ import { MongoClient } from 'mongodb';
 
 import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
-import { Plant } from '../../types/plant/plant';
 
 const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryGetPlantByPlantName = async (
+export const queryGetPlantByPlantNameAndUserId = async (
 	plantName: string,
-): Promise<Plant | unknown> => {
+	userId: string,
+): Promise<unknown> => {
 	try {
 		await connectDatabase();
 		return await client
 			.db(database)
 			.collection('Plants')
-			.findOne({ plantName: plantName });
+			.findOne({ plantName: plantName, userId: userId });
 	} catch (error) {
 		return error;
 	} finally {
