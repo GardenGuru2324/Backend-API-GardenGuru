@@ -14,7 +14,7 @@ export const plants = [
 		plantDaysToHarvest: 0,
 		plantRowSpacing: 0,
 		plantMinTemp: 18,
-		plantMaxTemp: 30
+		plantMaxTemp: 30,
 	},
 	{
 		plantId: 'jest_plant_2_user_1',
@@ -31,7 +31,7 @@ export const plants = [
 		plantDaysToHarvest: 0,
 		plantRowSpacing: 0,
 		plantMinTemp: 0,
-		plantMaxTemp: 0
+		plantMaxTemp: 0,
 	},
 	{
 		plantId: 'jest_plant_3_user_2',
@@ -48,6 +48,6 @@ export const plants = [
 		plantDaysToHarvest: 0,
 		plantRowSpacing: 0.3,
 		plantMinTemp: 10,
-		plantMaxTemp: 30
-	}
+		plantMaxTemp: 30,
+	},
 ];
