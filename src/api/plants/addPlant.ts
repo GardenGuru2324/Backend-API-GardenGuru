@@ -5,20 +5,14 @@ import { Double } from 'mongodb';
 import {
 	createResponseObject,
 	handleErrors,
-	isNullOrUndefined,
 } from '../../common/common';
 import { validateUser } from '../../common/users/common';
-import { ConflictError } from '../../errors/error';
-import { Plant } from '../../types/plant/plant';
-import { errorMessages } from '../../errors/errorMessages';
-import { queryGetPlantByPlantNameAndUserId } from '../../database/plants/queryGetPlantByPlantNameAndUserId';
 import { queryAddPlant } from '../../database/plants/queryAddPlant';
 import { CreatePlant } from '../../types/plant/createPlant';
 
 const router = express.Router();
 
-router.post('/user/:userId/plant', async (req, res) => {
-	const userId: string = req.params.userId as string;
+router.post('/plant', async (req, res) => {
 	const {
 		plantName,
 		locationId,
@@ -32,11 +26,11 @@ router.post('/user/:userId/plant', async (req, res) => {
 		plantRowSpacing,
 		plantMinTemp,
 		plantMaxTemp,
+		userId,
 	} = req.body;
 
 	try {
 		await validateUser(userId);
-		await checkIfUserAlreadyHasPlant(plantName, userId);
 
 		const plantId: string = uuidv4();
 		const plantedDate: number = Date.now();
@@ -70,18 +64,6 @@ router.post('/user/:userId/plant', async (req, res) => {
 	}
 });
 
-const checkIfUserAlreadyHasPlant = async (
-	plantName: string,
-	userId: string,
-): Promise<void> => {
-	const foundPlant: Plant = (await queryGetPlantByPlantNameAndUserId(
-		plantName,
-		userId,
-	)) as Plant;
-
-	if (!isNullOrUndefined(foundPlant))
-		throw new ConflictError(errorMessages.plantAlreadyExist);
-};
 const createPlantObject = (
 	plantId: string,
 	plantName: string,
