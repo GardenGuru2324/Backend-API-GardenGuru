@@ -1,7 +1,6 @@
-import { Double, ObjectId } from 'mongodb';
+import { Double } from 'mongodb';
 
-export interface Plant {
-	_id: ObjectId;
+export interface CreatePlant {
 	plantId: string;
 	plantName: string;
 	locationId: string;
