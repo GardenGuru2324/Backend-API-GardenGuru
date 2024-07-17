@@ -2,26 +2,16 @@ import { MongoClient } from 'mongodb';
 
 import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
-import { Plant } from '../../types/plant/plant';
+import { CreatePlant } from '../../types/plant/createPlant';
 
 const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryGetAllPlantsOfUser = async (
-	userId: string,
-	page: number,
-): Promise<Plant[] | unknown> => {
-	const itemPerPage = 10;
+export const queryAddPlant = async (plant: CreatePlant): Promise<unknown> => {
 	try {
 		await connectDatabase();
-		return await client
-			.db(database)
-			.collection('Plants')
-			.find({ userId: userId })
-			.skip((page - 1) * itemPerPage)
-			.limit(itemPerPage)
-			.toArray();
+		await client.db(database).collection('Plants').insertOne(plant);
 	} catch (error) {
 		return error;
 	} finally {

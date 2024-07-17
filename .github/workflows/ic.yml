@@ -16,8 +16,10 @@ jobs:
 
             - name: Update Submodule
               run: |
+                  git submodule update --init
                   cd Backend-jest-GardenGuru
-                  git pull origin dev
+                  git fetch origin dev
+                  git checkout dev
 
             - name: Use Node.js
               uses: actions/setup-node@v1
@@ -40,9 +42,9 @@ jobs:
 
             - name: Run Tests
               env:
-                BASE_URL: ${{ secrets.BASE_URL }}
-                MONGO_CONNECT_URL: ${{ secrets.MONGO_CONNECT_URL }}
-                DATABASE: ${{ secrets.DATABASE }}
+                  BASE_URL: ${{ secrets.BASE_URL }}
+                  MONGO_CONNECT_URL: ${{ secrets.MONGO_CONNECT_URL }}
+                  DATABASE: ${{ secrets.DATABASE }}
               run: |
                   cd Backend-jest-GardenGuru
                   touch .env
