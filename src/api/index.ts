@@ -8,6 +8,7 @@ import deletePlantByPlantId from './plants/deletePlantByPlantId';
 import login from './users/postUserByEmail';
 import register from './users/addUser';
 import user from './users/getUserByUserId';
+import updateProfilePicture from './users/updateProfilePicture';
 import initializeDatabase from './jest_test_endpoints/initializeDatabase';
 import clearDatabase from './jest_test_endpoints/clearDatabase';
 
@@ -33,6 +34,7 @@ router.use(deletePlantByPlantId);
 router.use(login);
 router.use(register);
 router.use(user);
+router.use(updateProfilePicture);
 
 // Database Seeding
 router.use(initializeDatabase);
