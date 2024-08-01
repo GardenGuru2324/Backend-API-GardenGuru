@@ -8,7 +8,7 @@ import deletePlantByPlantId from './plants/deletePlantByPlantId';
 import login from './users/postUserByEmail';
 import register from './users/addUser';
 import user from './users/getUserByUserId';
-import updateProfilePicture from "./users/updateProfilePicture";
+import updateProfilePicture from './users/updateProfilePicture';
 import initializeDatabase from './jest_test_endpoints/initializeDatabase';
 import clearDatabase from './jest_test_endpoints/clearDatabase';
 
