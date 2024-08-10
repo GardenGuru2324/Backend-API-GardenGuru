@@ -22,10 +22,11 @@ router.get('/treflePlants', async (req, res) => {
 		let treflePlants = response.data.data;
 
 		if (plantName !== undefined && plantName !== '') {
-			treflePlants = treflePlants.filter((plant: any) =>
-				plant.common_name
-					.toLowerCase()
-					.includes(plantName.toLowerCase()),
+			treflePlants = treflePlants.filter(
+				(plant: { common_name: string }) =>
+					plant.common_name
+						.toLowerCase()
+						.includes(plantName.toLowerCase()),
 			);
 		}
 
