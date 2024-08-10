@@ -3,7 +3,6 @@ import 'dotenv/config';
 
 import { createResponseObject, handleErrors } from '../../common/common';
 import axios from 'axios';
-import { Info, TreflePlant } from '../../types/plant/treflePlant';
 
 const router = express.Router();
 
