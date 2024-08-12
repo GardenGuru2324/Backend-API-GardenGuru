@@ -42,7 +42,7 @@ router.get('/user/:userId/plants', async (req, res) => {
 
 		if (plantName !== undefined && plantName !== '') {
 			allPlantsOfUser = allPlantsOfUser.filter((plant: Plant) =>
-				plant.plantName.includes(plantName),
+				plant.plantName.toLowerCase().includes(plantName.toLowerCase()),
 			);
 			checkIfUserHasPlants(allPlantsOfUser);
 		}
