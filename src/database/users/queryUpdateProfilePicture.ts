@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 
-import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
 import { User } from '../../types/user/user';
 
@@ -13,7 +12,6 @@ export const queryUpdateProfilePicture = async (
 	newProfilePicture: string,
 ): Promise<User | unknown> => {
 	try {
-		await connectDatabase();
 		await client
 			.db(database)
 			.collection('Users')
@@ -23,7 +21,5 @@ export const queryUpdateProfilePicture = async (
 			);
 	} catch (error) {
 		return error;
-	} finally {
-		await closeDatabase();
 	}
 };

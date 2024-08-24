@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 
-import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
 import { CreateUser } from '../../types/user/createUser';
 
@@ -10,11 +9,8 @@ const client = new MongoClient(uri);
 
 export const queryAddUser = async (newUser: CreateUser): Promise<unknown> => {
 	try {
-		await connectDatabase();
 		return await client.db(database).collection('Users').insertOne(newUser);
 	} catch (error) {
 		return error;
-	} finally {
-		await closeDatabase();
 	}
 };
