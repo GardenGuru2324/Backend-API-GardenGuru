@@ -1,6 +1,7 @@
 import express from 'express';
 
 import treflePlants from './plants/treflePlants';
+import treflePlantDetails from './plants/treflePlantDetails';
 import plant from './plants/getPlantByPlantId';
 import plantsOfUser from './plants/getAllPlantsOfUser';
 import allPlants from './plants/getAllPlants';
@@ -38,7 +39,10 @@ router.use(allPlants);
 router.use(plantsOfUser);
 router.use(addPlant);
 router.use(deletePlantByPlantId);
+
+// Trefle service
 router.use(treflePlants);
+router.use(treflePlantDetails);
 
 // User
 router.use(login);
