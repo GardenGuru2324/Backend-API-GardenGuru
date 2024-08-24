@@ -24,6 +24,7 @@ router.get('/user/:userId', async (req, res) => {
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const createUserDisplayObject = (foundUser: User) => {
 	return {
+		userName: foundUser.userName,
 		fullName: foundUser.fullName,
 		email: foundUser.email,
 		profilePicture: foundUser.profilePicture,

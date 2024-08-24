@@ -4,6 +4,13 @@ import bcrypt from 'bcrypt';
 import validate from 'deep-email-validator';
 
 import { createResponseObject, handleErrors } from '../../common/common';
+import {
+	Config,
+	adjectives,
+	animals,
+	colors,
+	uniqueNamesGenerator,
+} from 'unique-names-generator';
 import { User } from '../../types/user/user';
 import { CreateUser } from '../../types/user/createUser';
 import { queryAddUser } from '../../database/users/queryAddUser';
@@ -22,11 +29,13 @@ router.post('/register', async (req, res) => {
 		await doesUserAlreadyExist(email);
 
 		const userId: string = uuidv4();
+		const userName: string = generateUserName();
 		const profilePicture = getRandomProfile();
 		const hashPassword: string = await bcrypt.hash(password, 3);
 		const accountCreated: number = Date.now();
 		const createUser: CreateUser = createUserObject(
 			userId,
+			userName,
 			profilePicture,
 			hashPassword,
 			email,
@@ -43,6 +52,17 @@ router.post('/register', async (req, res) => {
 	}
 });
 
+const generateUserName = (): string => {
+	const customConfig: Config = {
+		dictionaries: [adjectives, colors, animals],
+		separator: '-',
+		length: 3,
+		style: 'lowerCase',
+	};
+
+	return uniqueNamesGenerator(customConfig);
+};
+
 const getRandomProfile = (): string => {
 	let posibleProfilePictures: string[] = [
 		'https://i.ibb.co/VD75cfm/plant-vector-1.jpg',
@@ -57,6 +77,7 @@ const getRandomProfile = (): string => {
 
 const createUserObject = (
 	userId: string,
+	userName: string,
 	profilePicture: string,
 	password: string,
 	email: string,
@@ -65,6 +86,7 @@ const createUserObject = (
 ): CreateUser => {
 	return {
 		userId: userId,
+		userName: userName,
 		profilePicture: profilePicture,
 		password: password,
 		email: email,
