@@ -11,7 +11,6 @@ const trefle_api_token: string = process.env.TREFLE_API_TOKEN!;
 
 router.get('/treflePlants', async (req, res) => {
 	const page = parseInt(req.query.page as string) || 1;
-	const plantName: string = req.query.search as string;
 
 	try {
 		let treflePlants: any[] = [];

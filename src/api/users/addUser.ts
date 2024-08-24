@@ -1,9 +1,5 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcrypt';
-import validate from 'deep-email-validator';
-
-import { createResponseObject, handleErrors } from '../../common/common';
 import {
 	Config,
 	adjectives,
@@ -11,6 +7,10 @@ import {
 	colors,
 	uniqueNamesGenerator,
 } from 'unique-names-generator';
+import bcrypt from 'bcrypt';
+import validate from 'deep-email-validator';
+
+import { createResponseObject, handleErrors } from '../../common/common';
 import { User } from '../../types/user/user';
 import { CreateUser } from '../../types/user/createUser';
 import { queryAddUser } from '../../database/users/queryAddUser';
@@ -64,7 +64,7 @@ const generateUserName = (): string => {
 };
 
 const getRandomProfile = (): string => {
-	let posibleProfilePictures: string[] = [
+	const posibleProfilePictures: string[] = [
 		'https://i.ibb.co/VD75cfm/plant-vector-1.jpg',
 		'https://i.ibb.co/3BQdNXh/plant-vector-2.jpg',
 		'https://i.ibb.co/d56yVjt/plant-vector-3.jpg',

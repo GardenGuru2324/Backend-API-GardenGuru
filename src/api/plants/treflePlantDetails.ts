@@ -10,7 +10,6 @@ const router = express.Router();
 const trefle_api_token: string = process.env.TREFLE_API_TOKEN!;
 
 router.get('/treflePlants/:plantId', async (req, res) => {
-	const page = parseInt(req.query.page as string) || 1;
 	const plantId = req.params.plantId;
 
 	try {
