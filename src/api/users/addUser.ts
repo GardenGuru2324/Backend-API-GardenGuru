@@ -1,12 +1,5 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import {
-	Config,
-	adjectives,
-	animals,
-	colors,
-	uniqueNamesGenerator,
-} from 'unique-names-generator';
 import bcrypt from 'bcrypt';
 import validate from 'deep-email-validator';
 
@@ -29,12 +22,12 @@ router.post('/register', async (req, res) => {
 		await doesUserAlreadyExist(email);
 
 		const userId: string = uuidv4();
-		const userName: string = generateUserName();
+		const profilePicture = getRandomProfile();
 		const hashPassword: string = await bcrypt.hash(password, 3);
 		const accountCreated: number = Date.now();
 		const createUser: CreateUser = createUserObject(
 			userId,
-			userName,
+			profilePicture,
 			hashPassword,
 			email,
 			fullName,
@@ -50,20 +43,21 @@ router.post('/register', async (req, res) => {
 	}
 });
 
-const generateUserName = (): string => {
-	const customConfig: Config = {
-		dictionaries: [adjectives, colors, animals],
-		separator: '-',
-		length: 3,
-		style: 'lowerCase',
-	};
-
-	return uniqueNamesGenerator(customConfig);
+const getRandomProfile = (): string => {
+	let posibleProfilePictures: string[] = [
+		'https://i.ibb.co/VD75cfm/plant-vector-1.jpg',
+		'https://i.ibb.co/3BQdNXh/plant-vector-2.jpg',
+		'https://i.ibb.co/d56yVjt/plant-vector-3.jpg',
+	];
+	const randomNumber: number = Math.floor(
+		Math.random() * posibleProfilePictures.length,
+	);
+	return posibleProfilePictures[randomNumber];
 };
 
 const createUserObject = (
 	userId: string,
-	userName: string,
+	profilePicture: string,
 	password: string,
 	email: string,
 	fullName: string,
@@ -71,7 +65,7 @@ const createUserObject = (
 ): CreateUser => {
 	return {
 		userId: userId,
-		userName: userName,
+		profilePicture: profilePicture,
 		password: password,
 		email: email,
 		fullName: fullName,
