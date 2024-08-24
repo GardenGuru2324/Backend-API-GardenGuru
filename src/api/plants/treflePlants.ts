@@ -13,7 +13,7 @@ router.get('/treflePlants', async (req, res) => {
 	const page = parseInt(req.query.page as string) || 1;
 
 	try {
-		let treflePlants: any[] = [];
+		let treflePlants = [];
 
 		const response = await axios.get(
 			`https://trefle.io/api/v1/plants?token=${trefle_api_token}&page=${page}`,
