@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 
-import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
 import { Plant } from '../../types/plant/plant';
 
@@ -12,14 +11,11 @@ export const queryGetPlantByPlantId = async (
 	plantId: string,
 ): Promise<Plant | unknown> => {
 	try {
-		await connectDatabase();
 		return await client
 			.db(database)
 			.collection('Plants')
 			.findOne({ plantId: plantId });
 	} catch (error) {
 		return error;
-	} finally {
-		await closeDatabase();
 	}
 };

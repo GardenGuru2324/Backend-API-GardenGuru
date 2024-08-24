@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 
-import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
 import { Plant } from '../../types/plant/plant';
 
@@ -10,7 +9,6 @@ const client = new MongoClient(uri);
 
 export const queryGetAllPlants = async (): Promise<Plant[] | unknown> => {
 	try {
-		await connectDatabase();
 		return await client
 			.db(database)
 			.collection('Plants')
@@ -18,7 +16,5 @@ export const queryGetAllPlants = async (): Promise<Plant[] | unknown> => {
 			.toArray();
 	} catch (error) {
 		return error;
-	} finally {
-		await closeDatabase();
 	}
 };

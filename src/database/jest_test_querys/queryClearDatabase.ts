@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 
-import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
 
 const uri: string = process.env.MONGO_CONNECT_URL!;
@@ -11,8 +10,6 @@ export const queryClearDatabase = async (
 	tableName: string,
 ): Promise<unknown> => {
 	try {
-		await connectDatabase();
-
 		const idToDelete: string = determineId(tableName)!;
 
 		await client
@@ -21,8 +18,6 @@ export const queryClearDatabase = async (
 			.deleteMany({ [idToDelete]: { $regex: /^jest/ } });
 	} catch (error) {
 		return error;
-	} finally {
-		await closeDatabase();
 	}
 };
 

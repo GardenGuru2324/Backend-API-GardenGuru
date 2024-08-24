@@ -16,13 +16,10 @@ export const queryInitializeDatabase = async (
 	tableName: string,
 ): Promise<unknown> => {
 	try {
-		await connectDatabase();
 		const data = determineData(tableName);
 		await client.db(database).collection(tableName).insertMany(data!);
 	} catch (error) {
 		return error;
-	} finally {
-		await closeDatabase();
 	}
 };
 
