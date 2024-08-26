@@ -25,7 +25,7 @@ router.get('/user/:userId/plants', async (req, res) => {
 	try {
 		await validateUser(userId);
 
-		let query: Query = { userId: userId };
+		const query: Query = { userId: userId };
 
 		if (plantName !== undefined && plantName !== '') {
 			query.plantName = { $regex: plantName, $options: 'i' };
@@ -37,7 +37,7 @@ router.get('/user/:userId/plants', async (req, res) => {
 			query.locationId = plantLocation.locationId;
 		}
 
-		let allPlantsOfUser: UserPlant = (await queryGetAllPlantsOfUser(
+		const allPlantsOfUser: UserPlant = (await queryGetAllPlantsOfUser(
 			query,
 			page,
 		)) as UserPlant;
