@@ -7,14 +7,18 @@ const uri: string = process.env.MONGO_CONNECT_URL!;
 const database: string = process.env.DATABASE!;
 const client = new MongoClient(uri);
 
-export const queryGetUserByEmail = async (
-	email: string,
+export const queryUpdateProfilePicture = async (
+	userId: string,
+	newProfilePicture: string,
 ): Promise<User | unknown> => {
 	try {
-		return (await client
+		await client
 			.db(database)
 			.collection('Users')
-			.findOne({ email: email })) as User;
+			.updateOne(
+				{ userId: userId },
+				{ $set: { profilePicture: newProfilePicture } },
+			);
 	} catch (error) {
 		return error;
 	}

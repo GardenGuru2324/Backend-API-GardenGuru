@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 
-import { connectDatabase, closeDatabase } from '../db';
 import 'dotenv/config';
 
 const uri: string = process.env.MONGO_CONNECT_URL!;
@@ -12,14 +11,11 @@ export const queryGetPlantByPlantNameAndUserId = async (
 	userId: string,
 ): Promise<unknown> => {
 	try {
-		await connectDatabase();
 		return await client
 			.db(database)
 			.collection('Plants')
 			.findOne({ plantName: plantName, userId: userId });
 	} catch (error) {
 		return error;
-	} finally {
-		await closeDatabase();
 	}
 };

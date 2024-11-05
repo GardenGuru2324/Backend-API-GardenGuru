@@ -2,13 +2,14 @@ import express from 'express';
 
 import { createResponseObject, handleErrors } from '../../common/common';
 import { queryGetAllPlantsOfUser } from '../../database/plants/queryGetAllPlantsOfUser';
-import { Plant } from '../../types/plant/plant';
 import { ConflictError } from '../../errors/error';
 import { errorMessages } from '../../errors/errorMessages';
 import { validateUser } from '../../common/users/common';
 import { PlantLocation } from '../../types/plantLocation/plantLocation';
 import { queryGetPlantLocationByLocationName } from '../../database/plantLocations/queryGetPlantLocationByLocationName';
 import { doesPlantLocationExist } from '../../common/plants/common';
+import { Query } from '../../types/Query';
+import { UserPlant } from '../../types/plant/userPlants';
 
 const router = express.Router();
 
@@ -24,28 +25,26 @@ router.get('/user/:userId/plants', async (req, res) => {
 	try {
 		await validateUser(userId);
 
-		let allPlantsOfUser: Plant[] = (await queryGetAllPlantsOfUser(
-			userId,
-			page,
-		)) as Plant[];
+		const query: Query = { userId: userId };
 
-		checkIfUserHasPlants(allPlantsOfUser);
+		if (plantName !== undefined && plantName !== '') {
+			query.plantName = { $regex: plantName, $options: 'i' };
+		}
 
 		if (plantLocationName !== undefined && plantLocationName !== '') {
 			const plantLocation: PlantLocation =
 				await validatePlantLocation(plantLocationName);
-			allPlantsOfUser = allPlantsOfUser.filter(
-				(plant: Plant) => plant.locationId === plantLocation.locationId,
-			);
-			checkIfUserHasPlantsOfLocation(allPlantsOfUser);
+			query.locationId = plantLocation.locationId;
 		}
 
-		if (plantName !== undefined && plantName !== '') {
-			allPlantsOfUser = allPlantsOfUser.filter((plant: Plant) =>
-				plant.plantName.includes(plantName),
-			);
-			checkIfUserHasPlants(allPlantsOfUser);
-		}
+		const allPlantsOfUser: UserPlant = (await queryGetAllPlantsOfUser(
+			query,
+			page,
+		)) as UserPlant;
+
+		plantLocationName && checkIfUserHasPlantsOfLocation(allPlantsOfUser);
+
+		checkIfUserHasPlants(allPlantsOfUser);
 
 		return createResponseObject(200, allPlantsOfUser, res);
 	} catch (error) {
@@ -64,16 +63,16 @@ const validatePlantLocation = async (
 	return plantLocation;
 };
 
-const checkIfUserHasPlants = (allPlantsOfUser: Plant[]): void => {
-	if (allPlantsOfUser.length === 0) {
+const checkIfUserHasPlants = (allPlantsOfUser: UserPlant): void => {
+	if (allPlantsOfUser.userPlants.length === 0) {
 		throw new ConflictError(errorMessages.userHasNoPlants);
 	}
 };
 
 const checkIfUserHasPlantsOfLocation = (
-	allPlantsOfUserOfLocation: Plant[],
+	allPlantsOfUserOfLocation: UserPlant,
 ): void => {
-	if (allPlantsOfUserOfLocation.length === 0)
+	if (allPlantsOfUserOfLocation.userPlants.length === 0)
 		throw new ConflictError(errorMessages.userHasNoPlantsOfLocation);
 };
 

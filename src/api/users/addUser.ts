@@ -30,11 +30,13 @@ router.post('/register', async (req, res) => {
 
 		const userId: string = uuidv4();
 		const userName: string = generateUserName();
+		const profilePicture = getRandomProfile();
 		const hashPassword: string = await bcrypt.hash(password, 3);
 		const accountCreated: number = Date.now();
 		const createUser: CreateUser = createUserObject(
 			userId,
 			userName,
+			profilePicture,
 			hashPassword,
 			email,
 			fullName,
@@ -61,9 +63,22 @@ const generateUserName = (): string => {
 	return uniqueNamesGenerator(customConfig);
 };
 
+const getRandomProfile = (): string => {
+	const posibleProfilePictures: string[] = [
+		'https://i.ibb.co/VD75cfm/plant-vector-1.jpg',
+		'https://i.ibb.co/3BQdNXh/plant-vector-2.jpg',
+		'https://i.ibb.co/d56yVjt/plant-vector-3.jpg',
+	];
+	const randomNumber: number = Math.floor(
+		Math.random() * posibleProfilePictures.length,
+	);
+	return posibleProfilePictures[randomNumber];
+};
+
 const createUserObject = (
 	userId: string,
 	userName: string,
+	profilePicture: string,
 	password: string,
 	email: string,
 	fullName: string,
@@ -72,6 +87,7 @@ const createUserObject = (
 	return {
 		userId: userId,
 		userName: userName,
+		profilePicture: profilePicture,
 		password: password,
 		email: email,
 		fullName: fullName,
